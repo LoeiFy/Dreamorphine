@@ -1,0 +1,7 @@
+*.bak
+*.swp
+*.log
+*~
+.DS_Store
+node_modules/*
+temp/*
