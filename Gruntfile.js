@@ -65,7 +65,6 @@ module.exports = function(grunt) {
 
         },
 
-        // https://www.npmjs.com/package/grunt-fileindex
         fileindex: {
 
             list: {
@@ -82,7 +81,6 @@ module.exports = function(grunt) {
 
         },
 
-        // https://github.com/excellenteasy/grunt-image-resize
         image_resize: {
 
             thumbnails: {

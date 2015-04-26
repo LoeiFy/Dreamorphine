@@ -1,0 +1,146 @@
+body, div, h1, h2, h3, h4, h5, p, ul, li {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    list-style: none;
+}
+a, a:hover {
+    text-decoration: none;
+}
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+html, body {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-font-smoothing: antialiased;
+}
+body {
+    background: #fff;
+    position: relative;
+    overflow-x: hidden;
+}
+
+#container {
+    margin-top: 100px;
+    padding: 1px;
+    background: #000;
+}
+#container li {
+    width: 6.25%;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+#container a {
+    display: block;
+    padding: 1px;
+    position: relative;
+}
+#container a:before, #container a:after {
+    content: '';
+    position: absolute;
+    background: blue;
+    height: 1px;
+}
+#container li.animate a:before {
+    -webkit-animation: rounda 2s linear forwards infinite;
+    top: 0;
+    left: 0;
+}
+#container li.animate a:after {
+    -webkit-animation: roundb 2s linear forwards infinite;
+    bottom: 0;
+    right: 0;
+}
+
+
+#container li:before, #container li:after {
+    content: '';
+    position: absolute;
+    background: blue;
+    width: 1px;
+}
+#container li.animate:before {
+    -webkit-animation: roundc 2s linear forwards infinite;
+    right: 0;
+    top: 0;
+}
+#container li.animate:after {
+    -webkit-animation: roundd 2s linear forwards infinite;
+    left: 0;
+    bottom: 0;
+}
+@-webkit-keyframes rounda {
+  0% {
+      width: 0;
+  }
+
+  25% {
+      width: 100%;
+  }
+
+  50% {
+  }
+
+  75% {
+  }
+
+  100% {
+  }
+}
+@-webkit-keyframes roundb {
+  0% {
+  }
+
+  25% {
+  }
+
+  50% {
+      width: 0;
+  }
+
+  75% {
+      width: 100%;
+  }
+
+  100% {
+  }
+}
+@-webkit-keyframes roundc {
+  0% {
+  }
+
+  25% {
+      height: 0;
+  }
+
+  50% {
+      height: 100%;
+  }
+
+  75% {
+  }
+
+  100% {
+  }
+}
+@-webkit-keyframes roundd {
+  0% {
+  }
+
+  25% {
+  }
+
+  50% {
+  }
+
+  75% {
+      height: 0;
+  }
+
+  100% {
+      height: 100%;
+  }
+}
