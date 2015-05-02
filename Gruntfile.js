@@ -91,17 +91,7 @@ module.exports = function(grunt) {
                 },
                 src: 'covers/*.jpg',
                 dest: 'thumbnails/'
-            },
-
-            large: {
-                options: {
-                    width: 300,
-                    quality: 0.8,
-                    overwrite: false
-                },
-                src: 'covers/*.jpg',
-                dest: 'large/'
-            },
+            }
 
         }
 

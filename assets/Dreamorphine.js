@@ -5,26 +5,58 @@ covers = covers.split(',');
 
 var R = covers.sort(function() { return Math.random() - 0.5 }),
     S = R.slice(0, 80),
-    H = R.slice(80); 
+    H = R.slice(80);
+
+function rnd(start, end){
+    return Math.floor(Math.random() * (end - start) + start);
+}
 
 $(function($) {
 
     var str = '';
     for (var i = 0; i < S.length; i ++) {
 
-        str += '<li>'+
-               '<a href="large/'+ S[i] +'">'+
-               '<img src="thumbnails/'+ S[i] +'.jpg" alt="'+ S[i].replace(/_/g, ' ') +'"/>'+
-               '</a>'+
-               '</li>';
+        str += '<li><img alt="'+ S[i] +'"/></li>';
 
     }
 
     $('#container').html(str)
 
-    $('body').on('click', 'li', function() {
-        $(this).addClass('animate')
-        return false;
+    $('#container').find('li').each(function() {
+        var t = $(this),
+            w = t.width(),
+            m = t.find('img');
+
+        t.width(w).height(w)
+
+        m.attr('src', 'thumbnails/'+ m.attr('alt') +'.jpg').on('load', function() {
+            $(this).addClass('loaded')
+        })
     })
+
+    setTimeout(function() {
+
+        var _a = [];
+        for (var i = 0; i < 80; i ++) {
+            _a.push(i)
+        }
+
+        (function f() {
+
+            if (!_a.length) return;
+
+            var n = rnd(0, _a.length),
+                e = $('#container li').eq(_a[n]).find('img');
+
+            if (e.hasClass('loaded')) {
+                e.css('opacity', 1)
+                _a.splice(n, 1)
+            }
+
+            setTimeout(function() { f() }, 200)
+
+        })();
+
+    }, 1000)
 
 })
