@@ -1,4 +1,4 @@
-body, div, h1, h2, h3, h4, h5, p, ul, li {
+body, div, h1, h2, h3, h4, p, ul, li {
     margin: 0;
     padding: 0;
     font-weight: normal;
@@ -9,15 +9,15 @@ a, a:hover {
 }
 img {
     display: block;
-    width: 100%;
     height: auto;
 }
 html, body {
+    height: 100%;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-font-smoothing: antialiased;
 }
 body {
-    background: #fff;
+    background: #333;
     position: relative;
     overflow-x: hidden;
 }
@@ -26,11 +26,11 @@ body {
     margin-top: 100px;
 }
 #container li {
-    width: 6.25%;
     display: inline-block;
     vertical-align: top;
+    position: relative;
 }
 #container img {
     opacity: 0;
-    transition: opacity 1s ease;
+    transition: all 1s ease;
 }

@@ -86,7 +86,6 @@ module.exports = function(grunt) {
             thumbnails: {
                 options: {
                     width: 150,
-                    quality: 0.8,
                     overwrite: false
                 },
                 src: 'covers/*.jpg',

@@ -3,9 +3,22 @@ var covers='a_journey_to_freedom,air_10_000HZ_legend_frontal,alcest_ecailles_de_
 
 covers = covers.split(',');
 
+var ar = Object.keys(covers).map(function(i) { return covers[i] });
+
+Array.prototype.shuffle = function() {
+    var i = this.length, p, t;
+    while (i--) {
+        p = Math.floor(Math.random()*i);
+        t = this[i];
+        this[i] = this[p];
+        this[p] = t;
+    }
+    return this
+}
+
 var R = covers.sort(function() { return Math.random() - 0.5 }),
-    S = R.slice(0, 80),
-    H = R.slice(80);
+    S = R.slice(0, 96),
+    H = R.slice(96);
 
 function rnd(start, end){
     return Math.floor(Math.random() * (end - start) + start);
@@ -23,27 +36,28 @@ $(function($) {
     $('#container').html(str)
 
     $('#container').find('li').each(function() {
-        var t = $(this),
-            w = t.width(),
-            m = t.find('img');
 
-        t.width(w).height(w)
+        var m = $(this).find('img');
 
         m.attr('src', 'thumbnails/'+ m.attr('alt') +'.jpg').on('load', function() {
             $(this).addClass('loaded')
         })
+
     })
 
     setTimeout(function() {
 
         var _a = [];
-        for (var i = 0; i < 80; i ++) {
+        for (var i = 0; i < S.length; i ++) {
             _a.push(i)
         }
 
         (function f() {
 
-            if (!_a.length) return;
+            if (!_a.length) {
+                //setTimeout(function() { grid() }, 1000)
+                return;
+            }
 
             var n = rnd(0, _a.length),
                 e = $('#container li').eq(_a[n]).find('img');
@@ -53,10 +67,42 @@ $(function($) {
                 _a.splice(n, 1)
             }
 
-            setTimeout(function() { f() }, 200)
+            setTimeout(function() { f() }, 100)
 
         })();
 
     }, 1000)
+
+    function grid() {
+
+        (function g() {
+
+            var Hn = rnd(0, H.length),
+                Hl = 'thumbnails/'+ H[Hn] +'.jpg',
+
+                Sn = rnd(0, S.length),
+                Sl = $('#container li').eq(Sn),
+                St = Sl.find('img').attr('alt');
+
+            $('<img src="'+ Hl +'" />').on('load', function() {
+
+                Sl.prepend('<img src="'+ Hl +'" alt="'+ H[Hn] +'" />')
+
+                $(Sl.find('img')[0]).css('opacity', 1)
+                $(Sl.find('img')[1]).css('opacity', 0)
+
+                setTimeout(function() {
+                    $(Sl.find('img')[1]).remove()
+                }, 1000)
+
+                H.splice(Hn, 1)
+                H.push(St)
+
+                setTimeout(function() { g() }, rnd(1001, 3000))
+            })
+
+        })();
+
+    }
 
 })
