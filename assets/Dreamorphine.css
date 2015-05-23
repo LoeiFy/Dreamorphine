@@ -29,8 +29,11 @@ body {
     display: inline-block;
     vertical-align: top;
     position: relative;
+    overflow: hidden;
 }
 #container img {
+    width: 100%;
     opacity: 0;
+    position: relative;
     transition: all 1s ease;
 }
