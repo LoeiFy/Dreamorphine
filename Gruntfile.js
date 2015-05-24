@@ -35,14 +35,14 @@ module.exports = function(grunt) {
                 options: {
                     patterns: [
                         {
-                            match: 'style',
-                            replacement: '<%= grunt.file.read("assets/module/css/base.css") %>'
+                            match: 'covers',
+                            replacement: '<%= grunt.file.read("temp/covers.js") %>'
                         }
                     ]
                 },
-                files: [
-                    { expand: true, flatten: true, src: ['views/*'], dest: '.tmp/' }
-                ]
+                files: {
+                    'index.html': '_index.html'
+                }
             }
 
         },
