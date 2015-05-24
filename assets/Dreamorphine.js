@@ -37,8 +37,23 @@ function R(a, b){
     return Math.floor(Math.random() * (b - a) + a)
 }
 
+// window resize
+var resize = function(f) {
+    var t;
+    $(window).on('resize', function() {
+        clearTimeout(t)
+        t = setTimeout(function() {
+            f()
+        }, 300)
+    })
+}
+
 // dom ready
 $(function($) {
+
+    var init;
+
+    (init = function() {
 
     // get item width and gap width
     var itemWidth = Math.floor($('#container').width() / columns),
@@ -64,6 +79,13 @@ $(function($) {
             })
         }
     }
+
+    $('#container').height(itemWidth * rows)
+
+
+    })();
+
+    resize(function() { init() })
 
 
     $('#container li').each(function() {

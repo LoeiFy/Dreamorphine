@@ -24,6 +24,7 @@ body {
 
 #container {
     margin-top: 100px;
+    overflow: hidden;
 }
 #container li {
     display: inline-block;
@@ -34,6 +35,7 @@ body {
 #container img {
     width: 100%;
     opacity: 0;
-    position: relative;
+    height: 100%;
+    position: absolute;
     transition: all 1s ease;
 }
