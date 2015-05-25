@@ -31,7 +31,7 @@ var resize = function(f) {
         clearTimeout(t)
         t = setTimeout(function() {
             f()
-        }, 1000)
+        }, 500)
     })
 }
 
@@ -39,9 +39,15 @@ var resize = function(f) {
 $(function($) {
 
     // define
-    var init, rows, columns, container = $('#container'), S, H;
+    var init, rows, columns, container = $('#container'), S, H, t0, t1;
 
-    (init = function() {
+    resize(function() {
+        clearTimeout(t0)
+        clearTimeout(t1)
+        init()
+    })
+
+    ;(init = function() {
 
         var _width = container.width();
 
@@ -74,7 +80,7 @@ $(function($) {
 
             case (_width <= 1600):
                 rows = 4;
-                columns = 12; 
+                columns = 16; 
             break;
 
             case (_width <= 1800):
@@ -137,7 +143,7 @@ $(function($) {
                 _a.push(i)
             }
 
-            (function f() {
+            ;(function f() {
 
                 if (!_a.length) {
                     setTimeout(function() { grid() }, 1000)
@@ -152,7 +158,7 @@ $(function($) {
                     _a.splice(n, 1)
                 }
 
-                setTimeout(function() { f() }, 100)
+                t0 = setTimeout(function() { f() }, 100)
 
             })();
         }, 1000)
@@ -160,11 +166,9 @@ $(function($) {
 
     })();
 
-    resize(function() { init() })
-
     function grid() {
 
-        (function g() {
+        ;(function g() {
 
             var Hn = R(0, H.length),
                 Hl = 'thumbnails/'+ H[Hn] +'.jpg',
@@ -187,7 +191,7 @@ $(function($) {
                 H.splice(Hn, 1)
                 H.push(St)
 
-                setTimeout(function() { g() }, R(1001, 3000))
+                t1 = setTimeout(function() { g() }, R(1001, 3000))
             })
 
         })();
