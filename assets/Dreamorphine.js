@@ -41,11 +41,13 @@ $(function($) {
     // define
     var init, rows, columns, container = $('#container'), S, H, t0, t1;
 
+    /*
     resize(function() {
         clearTimeout(t0)
         clearTimeout(t1)
         init()
     })
+    */
 
     ;(init = function() {
 
@@ -53,53 +55,22 @@ $(function($) {
 
         switch (true) {
 
-            case (_width <= 600):
-                rows = 3;
-                columns = 6; 
-            break;
-
-            case (_width <= 800):
-                rows = 3;
-                columns = 8; 
-            break;
-
             case (_width <= 1000):
-                rows = 3;
                 columns = 10; 
             break;
 
-            case (_width <= 1200):
-                rows = 4;
+            case (_width <= 1600):
                 columns = 12; 
             break;
 
-            case (_width <= 1400):
-                rows = 4;
+            case (_width <= 1800):
                 columns = 14; 
             break;
 
-            case (_width <= 1600):
-                rows = 4;
-                columns = 16; 
-            break;
-
-            case (_width <= 1800):
-                rows = 4;
-                columns = 18; 
-            break;
-
             default:
-                rows = 4;
-                columns = 20;
+                columns = 16;
 
         }
-
-        // total covers to show
-        S = covers.slice(0, rows * columns);
-
-        // random covers
-        H = covers.slice(rows * columns);
-
 
         // get item width and gap width
         var itemWidth = Math.floor(_width / columns),
@@ -107,6 +78,15 @@ $(function($) {
 
             // html string
             str = '';
+
+        // get rows
+        rows = Math.ceil(window.innerHeight / itemWidth)
+
+        // total covers to show
+        S = covers.slice(0, rows * columns);
+
+        // random covers
+        H = covers.slice(rows * columns);
 
         for (var k = 0; k < S.length; k ++) {
             str += '<li><img alt="'+ S[k] +'"/></li>';
@@ -146,7 +126,38 @@ $(function($) {
             ;(function f() {
 
                 if (!_a.length) {
-                    setTimeout(function() { grid() }, 1000)
+                    setTimeout(function() {
+
+                        ;(function g() {
+
+                            var Hn = R(0, H.length),
+                                Hl = 'thumbnails/'+ H[Hn] +'.jpg',
+
+                                Sn = R(0, S.length),
+                                Sl = container.find('li').eq(Sn),
+                                St = Sl.find('img').attr('alt');
+
+                            $('<img src="'+ Hl +'" />').on('load', function() {
+
+                                Sl.prepend('<img src="'+ Hl +'" alt="'+ H[Hn] +'" />')
+
+                                $(Sl.find('img')[0]).css('opacity', 1)
+                                $(Sl.find('img')[1]).css('opacity', 0)
+
+                                setTimeout(function() {
+                                    $(Sl.find('img')[1]).remove()
+                                }, 1000)
+
+                                H.splice(Hn, 1)
+                                H.push(St)
+
+                                t1 = setTimeout(function() { g() }, R(1001, 3000))
+                            })
+
+                        })();
+
+                    }, 1000)
+
                     return;
                 }
 
@@ -163,39 +174,13 @@ $(function($) {
             })();
         }, 1000)
 
-
     })();
 
-    function grid() {
+    container.on('click', function(e) {
+        var target = $(e.target);
 
-        ;(function g() {
-
-            var Hn = R(0, H.length),
-                Hl = 'thumbnails/'+ H[Hn] +'.jpg',
-
-                Sn = R(0, S.length),
-                Sl = container.find('li').eq(Sn),
-                St = Sl.find('img').attr('alt');
-
-            $('<img src="'+ Hl +'" />').on('load', function() {
-
-                Sl.prepend('<img src="'+ Hl +'" alt="'+ H[Hn] +'" />')
-
-                $(Sl.find('img')[0]).css('opacity', 1)
-                $(Sl.find('img')[1]).css('opacity', 0)
-
-                setTimeout(function() {
-                    $(Sl.find('img')[1]).remove()
-                }, 1000)
-
-                H.splice(Hn, 1)
-                H.push(St)
-
-                t1 = setTimeout(function() { g() }, R(1001, 3000))
-            })
-
-        })();
-
-    }
+        if (target.css('opacity') == 0) return;
+        var cover = 'covers/'+ target.attr('alt') +'.jpg';
+    })
 
 })

@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'DancingScript';
+    src: url('../font/DancingScript-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
 body, div, h1, h2, h3, h4, p, ul, li {
     margin: 0;
     padding: 0;
@@ -19,12 +25,12 @@ html, body {
 body {
     background: #333;
     position: relative;
-    overflow-x: hidden;
+    top: 0;
 }
-
 #container {
-    margin-top: 100px;
+    width: 100%;
     overflow: hidden;
+    height: 100%;
 }
 #container li {
     display: inline-block;
@@ -38,4 +44,17 @@ body {
     height: 100%;
     position: absolute;
     transition: all 1s ease;
+    cursor: pointer;
+}
+#popup {
+    position: absolute;
+    width: 540px;
+    height: 280px;
+    background: rgba(234, 92, 92, .7);
+    left: 50%;
+    margin-left: -270px;
+    top: 50%;
+    margin-top: -140px;
+    font-family: 'DancingScript';
+    color: #fff;
 }
