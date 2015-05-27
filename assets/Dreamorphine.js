@@ -41,13 +41,14 @@ $(function($) {
     // define
     var init, rows, columns, container = $('#container'), S, H, t0, t1;
 
-    /*
     resize(function() {
+        var _w = container.width(), _h = container.height();
+        if (_w == container.data('w') && _h == container.data('h')) return;
+
         clearTimeout(t0)
         clearTimeout(t1)
         init()
     })
-    */
 
     ;(init = function() {
 
@@ -106,7 +107,7 @@ $(function($) {
             }
         }
 
-        container.height(itemWidth * rows)
+        container.height(itemWidth * rows).data('w', _width).data('h', itemWidth * rows)
 
         container.find('li').each(function() {
             var m = $(this).find('img');

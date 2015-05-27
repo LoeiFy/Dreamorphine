@@ -1,8 +1,10 @@
 @font-face {
     font-family: 'DancingScript';
     src: url('../font/DancingScript-Regular.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
+}
+@font-face {
+    font-family: 'AveriaLibre-Regular';
+    src: url('../font/AveriaLibre-Regular.ttf') format('truetype');
 }
 body, div, h1, h2, h3, h4, p, ul, li {
     margin: 0;
@@ -50,11 +52,62 @@ body {
     position: absolute;
     width: 540px;
     height: 280px;
-    background: rgba(234, 92, 92, .7);
+    background: rgba(234, 92, 92, .93);
     left: 50%;
     margin-left: -270px;
     top: 50%;
     margin-top: -140px;
-    font-family: 'DancingScript';
     color: #fff;
+    font-family: 'AveriaLibre-Regular';
+    text-align: center;
+}
+#popup h1 {
+    font-family: 'DancingScript';
+    margin-top: 50px;
+    font-weight: 700;
+}
+#popup p {
+    font-size: 14px;
+    line-height: 1.8;
+    letter-spacing: .5px;
+    margin: 20px 50px 0;
+}
+#popup h2 {
+    font-size: 18px;
+    margin-top: 30px;
+}
+#close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    cursor: pointer;
+}
+#close:before {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 4px;
+    width: 14px;
+    left: 3px;
+    top: 8px;
+    background: rgba(234, 92, 92, .93);
+}
+#close:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 4px;
+    height: 14px;
+    left: 8px;
+    top: 3px;
+    background: rgba(234, 92, 92, .93);
 }
