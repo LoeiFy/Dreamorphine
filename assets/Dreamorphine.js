@@ -185,7 +185,6 @@ $(function($) {
 
         window.scrollTo(0, 0)
         mark.addClass('show')
-        $('body').addClass('mark')
 
         var cover = 'covers/'+ target.attr('alt') +'.jpg';
         $('<img src="'+ cover +'" />').on('load', function() {
@@ -203,7 +202,6 @@ $(function($) {
     mark.on('click', function(e) {
         if ($(e.target).is('img')) return;
         mark.removeClass('show').addClass('loading').html('')
-        $('body').removeClass('mark')
     })
 
 })
