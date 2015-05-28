@@ -43,7 +43,7 @@ $(function($) {
     var popup = $('#popup'), close = $('#close'), mark = $('#mark'), sign = false;
 
     resize(function() {
-        var _w = container.width(), _h = container.height();
+        var _w = container.width(), _h = window.innerHeight;
         if (_w == container.data('w') && _h == container.data('h')) return;
 
         clearTimeout(t0)
@@ -57,15 +57,23 @@ $(function($) {
 
         switch (true) {
 
+            case (_width <= 800):
+                columns = 6; 
+            break;
+
             case (_width <= 1000):
+                columns = 8; 
+            break;
+
+            case (_width <= 1200):
                 columns = 10; 
             break;
 
-            case (_width <= 1600):
+            case (_width <= 1400):
                 columns = 12; 
             break;
 
-            case (_width <= 1800):
+            case (_width <= 1600):
                 columns = 14; 
             break;
 
