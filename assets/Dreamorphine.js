@@ -208,7 +208,6 @@ $(function($) {
 
     // close mark
     mark.on('click', function(e) {
-        if ($(e.target).is('img')) return;
         mark.removeClass('show').addClass('loading').html('')
     })
 
