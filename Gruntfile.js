@@ -9,8 +9,8 @@ module.exports = function(grunt) {
                     banner: '/* http://lorem.in  @author LoeiFy@gmail.com */ \n'
                 },
                 files: {
-                    'dist/global.js': [
-                        'assets/index.js'
+                    'dist/Dreamorphine.js': [
+                        'assets/Dreamorphine.js'
                     ]
                 }
             }
@@ -21,10 +21,59 @@ module.exports = function(grunt) {
 
             global: {
                 files: {
-                    'dist/global.css': [
-                        'assets/index.css'
+                    'dist/Dreamorphine.css': [
+                        'assets/Dreamorphine.css'
                     ]
                 }
+            }
+
+        },
+
+        image_resize: {
+
+            thumbnails: {
+                options: {
+                    width: 150,
+                    overwrite: false
+                },
+                src: 'covers/*.jpg',
+                dest: 'thumbnails/'
+            }
+
+        },
+
+        fileindex: {
+
+            list: {
+                options: {
+                    format: function(list, options, dest) {
+                        var str = "var covers='"+ list + "';";
+                        return str.replace(/covers\//g, '').replace(/.jpg/g, '');
+                    }
+                },
+                files: [
+                    {dest: 'temp/covers.js', src: ['covers/*']}
+                ]
+            },
+
+            covers: {
+                options: {
+                    format: 'lines',
+                    absolute: false
+                },
+                files: [
+                    {dest: 'temp/covers.txt', src: ['covers/*']}
+                ]
+            },
+
+            thumbnails: {
+                options: {
+                    format: 'lines',
+                    absolute: false
+                },
+                files: [
+                    {dest: 'temp/thumbnails.txt', src: ['thumbnails/*']}
+                ]
             }
 
         },
@@ -43,53 +92,24 @@ module.exports = function(grunt) {
                 files: {
                     'index.html': '_index.html'
                 }
-            }
+            },
 
-        },
-
-        htmlmin: {
-
-            html: {
-
+            cache: {
                 options: {
-                    removeComments: true,
-                    collapseWhitespace: true
+                    patterns: [
+                        {
+                            match: 'covers',
+                            replacement: '<%= grunt.file.read("temp/covers.txt") %>'
+                        },
+                        {
+                            match: 'thumbnails',
+                            replacement: '<%= grunt.file.read("temp/thumbnails.txt") %>'
+                        }
+                    ]
                 },
-
                 files: {
-                    'index.html': '.tmp/index.html',
-                    'about/index.html': '.tmp/index.html'
+                    'Dreamorphine.appcache': '_Dreamorphine.appcache'
                 }
-
-            }
-
-        },
-
-        fileindex: {
-
-            list: {
-                options: {
-                    format: function(list, options, dest) {
-                        var str = "var covers='"+ list + "';";
-                        return str.replace(/covers\//g, '').replace(/.jpg/g, '');
-                    }
-                },
-                files: [
-                    {dest: 'temp/covers.js', src: ['covers/*']}
-                ]
-            }
-
-        },
-
-        image_resize: {
-
-            thumbnails: {
-                options: {
-                    width: 150,
-                    overwrite: false
-                },
-                src: 'covers/*.jpg',
-                dest: 'thumbnails/'
             }
 
         }
@@ -100,9 +120,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-fileindex');
     grunt.loadNpmTasks('grunt-image-resize');
 
-    grunt.registerTask('default', ['htmlmin:html']);
+    grunt.registerTask('default', ['uglify', 'cssmin', 'image_resize', 'fileindex', 'replace']);
 };

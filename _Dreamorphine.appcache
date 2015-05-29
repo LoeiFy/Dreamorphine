@@ -1,0 +1,16 @@
+CACHE MANIFEST
+#version 0.0
+
+CACHE:
+index.html
+assets/zepto.js
+dist/Dreamorphine.css
+dist/Dreamorphine.js
+font/AveriaLibre-Regular.ttf
+font/DancingScript-Regular.otf
+
+@@covers
+@@thumbnails
+
+NETWORK:
+*
