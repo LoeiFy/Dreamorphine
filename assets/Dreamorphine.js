@@ -136,7 +136,11 @@ $(function($) {
             ;(function f() {
 
                 if (!_a.length) {
-                    popup.addClass('show')
+                    if (popup.data('show')) {
+                        sign == true;
+                    } else {
+                        popup.addClass('show').data('show', 1)
+                    }
 
                     setTimeout(function() {
                         ;(function g() {
