@@ -1,6 +1,6 @@
 # Dreamorphine
 A growing collection of album covers. Powered by GitHub and Grunt. 
-http://dreamorphine.am0200.com
+http://stone.am0200.com
 
 ### License
 - MIT
