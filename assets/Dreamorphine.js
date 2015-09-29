@@ -24,24 +24,13 @@ function R(a, b){
     return Math.floor(Math.random() * (b - a) + a)
 }
 
-// window resize
-var resize = function(f) {
-    var t;
-    $(window).on('resize', function() {
-        clearTimeout(t)
-        t = setTimeout(function() {
-            f()
-        }, 500)
-    })
-}
-
-// dom ready
 $(function($) {
 
     // define
     var init, rows, columns, container = $('#container'), S, H, t0, t1;
     var popup = $('#popup'), close = $('#close'), mark = $('#mark'), sign = false;
 
+    /*
     resize(function() {
         var _w = container.width(), _h = window.innerHeight;
         if (_w == container.data('w') && _h == container.data('h')) return;
@@ -50,37 +39,13 @@ $(function($) {
         clearTimeout(t1)
         init()
     })
+    */
 
     ;(init = function() {
 
         var _width = container.width();
 
-        switch (true) {
-
-            case (_width <= 800):
-                columns = 6; 
-            break;
-
-            case (_width <= 1000):
-                columns = 8; 
-            break;
-
-            case (_width <= 1200):
-                columns = 10; 
-            break;
-
-            case (_width <= 1400):
-                columns = 12; 
-            break;
-
-            case (_width <= 1600):
-                columns = 14; 
-            break;
-
-            default:
-                columns = 16;
-
-        }
+        columns = Math.ceil(_width / 90);
 
         // get item width and gap width
         var itemWidth = Math.floor(_width / columns),
@@ -90,7 +55,7 @@ $(function($) {
             str = '';
 
         // get rows
-        rows = Math.ceil(window.innerHeight / itemWidth)
+        rows = 4;
 
         // total covers to show
         S = covers.slice(0, rows * columns);

@@ -31,15 +31,17 @@ body {
     overflow: hidden;
 }
 #container {
-    width: 100%;
     overflow: hidden;
-    height: 100%;
 }
 #container li {
     display: inline-block;
     vertical-align: top;
     position: relative;
     overflow: hidden;
+    padding: 1px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
 }
 #container img {
     width: 100%;
