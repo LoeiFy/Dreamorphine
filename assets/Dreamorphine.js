@@ -28,18 +28,7 @@ $(function($) {
 
     // define
     var init, rows, columns, container = $('#container'), S, H, t0, t1;
-    var popup = $('#popup'), close = $('#close'), mark = $('#mark'), sign = false;
-
-    /*
-    resize(function() {
-        var _w = container.width(), _h = window.innerHeight;
-        if (_w == container.data('w') && _h == container.data('h')) return;
-
-        clearTimeout(t0)
-        clearTimeout(t1)
-        init()
-    })
-    */
+    var close = $('#close'), mark = $('#mark');
 
     ;(init = function() {
 
@@ -101,11 +90,6 @@ $(function($) {
             ;(function f() {
 
                 if (!_a.length) {
-                    if (popup.data('show')) {
-                        sign == true;
-                    } else {
-                        popup.addClass('show').data('show', 1)
-                    }
 
                     setTimeout(function() {
                         ;(function g() {
@@ -158,7 +142,7 @@ $(function($) {
     // show big cover
     container.on('click', function(e) {
         var target = $(e.target);
-        if (target.css('opacity') == 0 || !sign) return;
+        if (target.css('opacity') == 0) return;
 
         window.scrollTo(0, 0)
         mark.addClass('show')
@@ -172,7 +156,6 @@ $(function($) {
     // close popup
     close.on('click', function() {
         popup.removeClass('show')
-        sign = true;
     })
 
     // close mark

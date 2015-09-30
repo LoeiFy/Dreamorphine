@@ -2,11 +2,7 @@
     font-family: 'DancingScript';
     src: url('../font/DancingScript-Regular.otf') format('opentype');
 }
-@font-face {
-    font-family: 'AveriaLibre-Regular';
-    src: url('../font/AveriaLibre-Regular.ttf') format('truetype');
-}
-body, div, h1, h2, h3, h4, p, ul, li {
+body, h1, h3, p, ul, li {
     margin: 0;
     padding: 0;
     font-weight: normal;
@@ -25,23 +21,54 @@ html, body {
     -webkit-font-smoothing: antialiased;
 }
 body {
-    background: #333;
+    background: #fff;
     position: relative;
     top: 0;
     overflow: hidden;
+    font-family: serif;
 }
-#container {
-    overflow: hidden;
+#header {
+    padding: 30px 50px 60px;
+    max-width: 900px;
+    position: relative;
+}
+#header h1 {
+    color: #252628;
+    font-size: 40px;
+    position: absolute;
+    font-family: 'DancingScript';
+}
+#header p {
+    padding-left: 300px;
+    font-size: 16px;
+    color: #3a3a3a;
+    line-height: 1.4;
+    font-style: italic;
+    position: relative;
+}
+#header p:before {
+    content: '';
+    display: block;
+    width: 2px;
+    position: absolute;
+    height: 40px;
+    background: #B8404B;
+    left: 280px;
+    top: 5px;
+}
+#container:after {
+    content: '';
+    width: 90%;
+    display: block;
+    margin: 30px auto 0;
+    height: 1px;
+    background: #e4e4e4;
 }
 #container li {
     display: inline-block;
     vertical-align: top;
     position: relative;
     overflow: hidden;
-    padding: 1px;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
 }
 #container img {
     width: 100%;
@@ -50,84 +77,6 @@ body {
     position: absolute;
     transition: all 1s ease;
     cursor: pointer;
-}
-#popup {
-    position: absolute;
-    width: 540px;
-    height: 280px;
-    background: rgba(234, 92, 92, .93);
-    left: 50%;
-    margin-left: -270px;
-    top: 50%;
-    margin-top: -140px;
-    color: #fff;
-    font-family: 'AveriaLibre-Regular';
-    text-align: center;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    transition: all 0.3s;
-    opacity: 0;
-    -webkit-transform: scale(.8);
-    -moz-transform: scale(.8);
-    transform: scale(.8);
-    visibility: hidden;
-}
-#popup.show {
-    visibility: visible;
-    opacity: 1;
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    transform: scale(1);
-}
-#popup h1 {
-    font-family: 'DancingScript';
-    margin-top: 50px;
-    font-weight: 700;
-}
-#popup p {
-    font-size: 14px;
-    line-height: 1.8;
-    letter-spacing: .5px;
-    margin: 20px 50px 0;
-}
-#popup h2 {
-    font-size: 18px;
-    margin-top: 30px;
-}
-#close {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    background: #fff;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    cursor: pointer;
-}
-#close:before {
-    content: '';
-    display: block;
-    position: absolute;
-    height: 4px;
-    width: 14px;
-    left: 3px;
-    top: 8px;
-    background: rgba(234, 92, 92, .93);
-}
-#close:after {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 4px;
-    height: 14px;
-    left: 8px;
-    top: 3px;
-    background: rgba(234, 92, 92, .93);
 }
 #mark {
     width: 100%;
