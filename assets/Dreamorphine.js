@@ -61,12 +61,17 @@ $(function($) {
         for(var i = 0; i < rows; i ++) {
             for(var j = 0; j < columns; j ++) {
                 var idx = columns * i + j,
-                    item = container.find('li').eq(idx);
+                    item = container.find('li').eq(idx),
+                    w = j < gapWidth ? itemWidth + 1 : itemWidth;
 
                 item.css({
-                    width : j < gapWidth ? itemWidth + 1 : itemWidth,
+                    width : w,
                     height : itemWidth
                 })
+
+                if (i == 0) {
+                    $('#line').append('<div style="width:'+ w +'px"></div>')
+                }
             }
         }
 
