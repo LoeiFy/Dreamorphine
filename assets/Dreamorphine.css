@@ -25,40 +25,11 @@ body {
     position: relative;
     font-family: serif;
 }
-#header {
-    display: none;
-    padding: 30px 50px 70px;
-    max-width: 900px;
-    position: relative;
-}
-#header h1 {
-    color: #252628;
-    font-size: 40px;
-    position: absolute;
-    font-family: 'DancingScript';
-}
-#header p {
-    padding-left: 300px;
-    font-size: 16px;
-    color: #3a3a3a;
-    line-height: 1.4;
-    font-style: italic;
-    position: relative;
-}
-#header p:before {
-    content: '';
-    display: block;
-    width: 2px;
-    position: absolute;
-    height: 40px;
-    background: #B8404B;
-    left: 280px;
-    top: 5px;
-}
 .wrap {
     height: 100%;
     position: relative;
     overflow: hidden;
+    min-height: 700px;
 }
 .wrap:before {
     display: inline-block;
@@ -81,6 +52,24 @@ body {
     -webkit-transform: rotate(-45deg);
     -moz-transform: rotate(-45deg);
     z-index: 1;
+}
+#header {
+    position: absolute;
+    left: 50px;
+    top: 50%;
+    margin-top: -290px;
+    position: absolute;
+    z-index: 2;
+}
+#header h1 {
+    color: #1c1c1c;
+    font-size: 44px;
+    font-family: 'DancingScript';
+}
+#header p {
+    color: #909090;
+    font-size: 16px;
+    margin-top: 5px;
 }
 #line {
     position: absolute;
