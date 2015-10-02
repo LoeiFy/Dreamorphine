@@ -28,7 +28,7 @@ $(function($) {
 
     // define
     var init, rows, columns, container = $('#container'), S, H, t0, t1;
-    var close = $('#close'), mark = $('#mark');
+    var mark = $('#mark');
 
     ;(init = function() {
 
@@ -149,18 +149,12 @@ $(function($) {
         var target = $(e.target);
         if (target.css('opacity') == 0) return;
 
-        window.scrollTo(0, 0)
         mark.addClass('show')
 
         var cover = 'covers/'+ target.attr('alt') +'.jpg';
         $('<img src="'+ cover +'" />').on('load', function() {
             mark.removeClass('loading').html($(this))
         })
-    })
-
-    // close popup
-    close.on('click', function() {
-        popup.removeClass('show')
     })
 
     // close mark
