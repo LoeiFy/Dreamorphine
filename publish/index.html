@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Publish</title>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="note"><p></p></div>
+
+<form accept="image/x-png, image/jpeg" enctype="multipart/form-data" method="post" action="/" id="form">
+    <input type="file" name="file" id="file" accept="image/x-png, image/jpeg"/>
+
+    <h1>publish</h1>
+    <div id="drop">Drag cover image here or browse to upload [JPG, PNG]</div>
+
+    <p>Album<span>e.g. "Soon It Will Be Cold Enough"</span></p>
+    <input type="text" id="album" name="album" />
+
+    <p>Author<span>e.g. "Emancipator"</span></p>
+    <input type="text" id="author" name="author" />
+
+    <input type="submit" value="Save Cover" />
+</form>
+
+<script src="script.js"></script>
+</body>
+</html>
