@@ -3,6 +3,7 @@ var gulp = require('gulp'),
     fs = require('fs'),
     concat = require('gulp-concat'),
     connect = require('gulp-connect'),
+    jshint = require('gulp-jshint'),
     replace = require('gulp-replace-task');
 
 gulp.task('post', function() {
@@ -17,7 +18,7 @@ gulp.task('replace', ['post'], function() {
             patterns: [
                 {
                     match: 'posts',
-                    replacement: fs.readFileSync('posts/posts', 'utf8')
+                    replacement: fs.readFileSync('temp/posts', 'utf8')
                 }
             ]
         }))
@@ -32,11 +33,14 @@ gulp.task('server', ['replace'], function () {
 })
 
 gulp.task('watch', ['replace'], function() {
-    gulp.watch(['assets/*'], ['reload'])
+    gulp.watch(['assets/*'], ['reload']);
 })
 
 gulp.task('reload', function () {
-    connect.reload()
+    gulp.src(['assets/*.js', '!assets/zepto.js'])
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'))
+        .pipe(connect.reload())
 })
 
-gulp.task('default', ['server', 'watch'])
+gulp.task('default', ['reload', 'server', 'watch'])
