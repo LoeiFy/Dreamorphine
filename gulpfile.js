@@ -1,127 +1,42 @@
-module.exports = function(grunt) {
 
-    grunt.initConfig({
+var gulp = require('gulp'),
+    fs = require('fs'),
+    concat = require('gulp-concat'),
+    connect = require('gulp-connect'),
+    replace = require('gulp-replace-task');
 
-        uglify: {
+gulp.task('post', function() {
+    return gulp.src('posts/*')
+        .pipe(concat('posts', {newLine: ','}))
+        .pipe(gulp.dest('temp/'))
+})
 
-            global: {
-                options: {
-                    banner: '/* http://lorem.in  @author LoeiFy@gmail.com */ \n'
-                },
-                files: {
-                    'dist/Dreamorphine.js': [
-                        'assets/Dreamorphine.js'
-                    ]
+gulp.task('replace', ['post'], function() {
+    return gulp.src('assets/index.html')
+        .pipe(replace({
+            patterns: [
+                {
+                    match: 'posts',
+                    replacement: fs.readFileSync('posts/posts', 'utf8')
                 }
-            }
-            
-        },
+            ]
+        }))
+        .pipe(gulp.dest('./'))
+})
 
-        cssmin: {
+gulp.task('server', ['replace'], function () {
+    return connect.server({
+        port: 2222,
+        livereload: true
+    })
+})
 
-            global: {
-                files: {
-                    'dist/Dreamorphine.css': [
-                        'assets/Dreamorphine.css'
-                    ]
-                }
-            }
+gulp.task('watch', ['replace'], function() {
+    gulp.watch(['assets/*'], ['reload'])
+})
 
-        },
+gulp.task('reload', function () {
+    connect.reload()
+})
 
-        image_resize: {
-
-            thumbnails: {
-                options: {
-                    width: 150,
-                    overwrite: false
-                },
-                src: 'covers/*.jpg',
-                dest: 'thumbnails/'
-            }
-
-        },
-
-        fileindex: {
-
-            list: {
-                options: {
-                    format: function(list, options, dest) {
-                        var str = "var covers='"+ list + "';";
-                        return str.replace(/covers\//g, '').replace(/.jpg/g, '');
-                    }
-                },
-                files: [
-                    {dest: 'temp/covers.js', src: ['covers/*']}
-                ]
-            },
-
-            covers: {
-                options: {
-                    format: 'lines',
-                    absolute: false
-                },
-                files: [
-                    {dest: 'temp/covers.txt', src: ['covers/*']}
-                ]
-            },
-
-            thumbnails: {
-                options: {
-                    format: 'lines',
-                    absolute: false
-                },
-                files: [
-                    {dest: 'temp/thumbnails.txt', src: ['thumbnails/*']}
-                ]
-            }
-
-        },
-
-        replace: {
-
-            html: {
-                options: {
-                    patterns: [
-                        {
-                            match: 'covers',
-                            replacement: '<%= grunt.file.read("temp/covers.js") %>'
-                        }
-                    ]
-                },
-                files: {
-                    'index.html': '_index.html'
-                }
-            },
-
-            cache: {
-                options: {
-                    patterns: [
-                        {
-                            match: 'covers',
-                            replacement: '<%= grunt.file.read("temp/covers.txt") %>'
-                        },
-                        {
-                            match: 'thumbnails',
-                            replacement: '<%= grunt.file.read("temp/thumbnails.txt") %>'
-                        }
-                    ]
-                },
-                files: {
-                    'Dreamorphine.appcache': '_Dreamorphine.appcache'
-                }
-            }
-
-        }
-
-    });
-
-    // grunt plugin
-    grunt.loadNpmTasks('grunt-replace');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-fileindex');
-    grunt.loadNpmTasks('grunt-image-resize');
-
-    grunt.registerTask('default', ['uglify', 'cssmin', 'image_resize', 'fileindex', 'replace']);
-};
+gulp.task('default', ['server', 'watch'])
