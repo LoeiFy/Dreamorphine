@@ -69,7 +69,7 @@ $(function($) {
                     height : itemWidth
                 })
 
-                if (i == 0) {
+                if (i === 0) {
                     $('#line').append('<div style="width:'+ w +'px"></div>')
                 }
             }
@@ -142,12 +142,12 @@ $(function($) {
             })();
         }, 1000)
 
-    })();
+    }).call()
 
     // show big cover
     container.on('click', function(e) {
         var target = $(e.target);
-        if (target.css('opacity') == 0) return;
+        if (parseInt(target.css('opacity')) === 0) return;
 
         mark.addClass('show')
 
