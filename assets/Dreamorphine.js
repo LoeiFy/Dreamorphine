@@ -1,9 +1,3 @@
-// covers to Object
-covers = covers.split(',');
-
-// covers to Array
-covers = Object.keys(covers).map(function(i) { return covers[i] });
-
 // shuffle Array
 Array.prototype.shuffle = function() {
     var i = this.length, p, t;
@@ -53,7 +47,7 @@ $(function($) {
         H = covers.slice(rows * columns);
 
         for (var k = 0; k < S.length; k ++) {
-            str += '<li><img alt="'+ S[k] +'"/></li>';
+            str += '<li><img data-url="'+ S[k][0] +'"/></li>';
         }
 
         $('#container').html(str)
@@ -80,54 +74,24 @@ $(function($) {
         container.find('li').each(function() {
             var m = $(this).find('img');
 
-            m.attr('src', 'thumbnails/'+ m.attr('alt') +'.jpg').on('load', function() {
+            m.attr('src', 'thumbnails/'+ m.data('url') +'.jpg').on('load', function() {
                 $(this).addClass('loaded')
             })
 
         })
 
         setTimeout(function() {
+
             var _a = [];
             for (var i = 0; i < S.length; i ++) {
                 _a.push(i)
             }
 
-            ;(function f() {
+            if (!_a.length) {
+                return
+            }
 
-                if (!_a.length) {
-
-                    setTimeout(function() {
-                        ;(function g() {
-
-                            var Hn = R(0, H.length),
-                                Hl = 'thumbnails/'+ H[Hn] +'.jpg',
-
-                                Sn = R(0, S.length),
-                                Sl = container.find('li').eq(Sn),
-                                St = Sl.find('img').attr('alt');
-
-                            $('<img src="'+ Hl +'" />').on('load', function() {
-
-                                Sl.prepend('<img src="'+ Hl +'" alt="'+ H[Hn] +'" />')
-
-                                $(Sl.find('img')[0]).css('opacity', 1)
-                                $(Sl.find('img')[1]).css('opacity', 0)
-
-                                setTimeout(function() {
-                                    $(Sl.find('img')[1]).remove()
-                                }, 1000)
-
-                                H.splice(Hn, 1)
-                                H.push(St)
-
-                                t1 = setTimeout(function() { g() }, R(1001, 3000))
-                            })
-
-                        })();
-                    }, 1000)
-
-                    return;
-                }
+            (function f() {
 
                 var n = R(0, _a.length),
                     e = container.find('li').eq(_a[n]).find('img');
@@ -135,11 +99,47 @@ $(function($) {
                 if (e.hasClass('loaded')) {
                     e.css('opacity', 1)
                     _a.splice(n, 1)
+
+                    if (!_a.length) {
+                        g()
+                    }
                 }
 
                 t0 = setTimeout(function() { f() }, 100)
 
-            })();
+            }())
+
+            function g() {
+
+                if (!H.length) {
+                    return
+                }
+
+                var Hn = R(0, H.length),
+                    Hl = 'thumbnails/'+ H[Hn][0] +'.jpg',
+
+                    Sn = R(0, S.length),
+                    Sl = container.find('li').eq(Sn);
+
+                $('<img src="'+ Hl +'" />').on('load', function() {
+
+                    Sl.prepend('<img src="'+ Hl +'" data-url="'+ H[Hn][0] +'" />')
+
+                    $(Sl.find('img')[0]).css('opacity', 1)
+                    $(Sl.find('img')[1]).css('opacity', 0)
+
+                    setTimeout(function() {
+                        $(Sl.find('img')[1]).remove()
+                    }, 1000)
+
+                    var N = H.splice(Hn, 1);
+                    H.push(N[0])
+
+                    t1 = setTimeout(function() { g() }, R(1001, 3000))
+                })
+
+            }
+
         }, 1000)
 
     }).call()
