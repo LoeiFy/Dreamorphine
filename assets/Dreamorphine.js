@@ -47,7 +47,7 @@ $(function($) {
         H = covers.slice(rows * columns);
 
         for (var k = 0; k < S.length; k ++) {
-            str += '<li><img data-url="'+ S[k][0] +'"/></li>';
+            str += '<li><img data-u="'+ S[k][0] +'" data-c="'+ S[k][1] +'" data-w="'+ S[k][2] +'" data-h="'+ S[k][3] +'" data-m="'+ S[k][4] +'" data-r="'+ S[k][5] +'" /></li>';
         }
 
         $('#container').html(str)
@@ -74,7 +74,7 @@ $(function($) {
         container.find('li').each(function() {
             var m = $(this).find('img');
 
-            m.attr('src', 'thumbnails/'+ m.data('url') +'.jpg').on('load', function() {
+            m.attr('src', 'thumbnails/'+ m.data('u') +'.jpg').on('load', function() {
                 $(this).addClass('loaded')
             })
 
@@ -123,7 +123,7 @@ $(function($) {
 
                 $('<img src="'+ Hl +'" />').on('load', function() {
 
-                    Sl.prepend('<img src="'+ Hl +'" data-url="'+ H[Hn][0] +'" />')
+                    Sl.prepend('<img src="'+ Hl +'" data-u="'+ H[Hn][0] +'" data-c="'+ H[Hn][1] +'" data-w="'+ H[Hn][2] +'" data-h="'+ H[Hn][3] +'" data-m="'+ H[Hn][4] +'" data-r="'+ H[Hn][5] +'" />')
 
                     $(Sl.find('img')[0]).css('opacity', 1)
                     $(Sl.find('img')[1]).css('opacity', 0)
