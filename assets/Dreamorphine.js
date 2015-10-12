@@ -147,19 +147,27 @@ $(function($) {
     // show big cover
     container.on('click', function(e) {
         var target = $(e.target);
-        if (parseInt(target.css('opacity')) === 0) return;
+
+        if (parseInt(target.css('opacity')) === 0 || !target.data('u')) {
+            return
+        }
 
         mark.addClass('show')
 
-        var cover = 'covers/'+ target.attr('alt') +'.jpg';
+        var cover = 'covers/'+ target.data('u') +'.jpg';
         $('<img src="'+ cover +'" />').on('load', function() {
-            mark.removeClass('loading').html($(this))
+            mark.removeClass('loading')
+
+            mark.find('.inner').width(target.data('w')).height(target.data('h'))
+            mark.find('.img').html($(this))
+            mark.find('.bg').css('background-color', target.data('c'))
+            mark.find('.info').html('<h2>'+ target.data('m') +'</h2><h3>'+ target.data('r') +'</h3>')
         })
     })
 
     // close mark
     mark.on('click', function(e) {
-        mark.removeClass('show').addClass('loading').html('')
+        mark.removeClass('show').addClass('loading').find('.img').html('')
     })
 
 })

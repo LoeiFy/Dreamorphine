@@ -36,7 +36,7 @@ gulp.task('watch', ['replace'], function() {
     gulp.watch(['assets/*'], ['reload']);
 })
 
-gulp.task('reload', function () {
+gulp.task('reload', ['replace'], function () {
     gulp.src(['assets/*.js', '!assets/zepto.js'])
         .pipe(jshint({asi:true}))
         .pipe(jshint.reporter('default'))

@@ -129,17 +129,71 @@ body {
     visibility: visible;
     opacity: 1;
 }
-#mark:before {
+#mark:before, #mark .img:before {
     content: '';
     display: inline-block;
     vertical-align: middle;
     height: 100%;
 }
-#mark img {
-    max-width: 98%;
-    height: auto;
-    width: auto;
-    max-height: 98%;
+#mark .inner {
     display: inline-block;
     vertical-align: middle;
+    position: relative;
+}
+#mark .bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    -webkit-transition: opacity .3s ease;
+    -moz-transition: opacity .3s ease;
+    transition: opacity .3s ease;
+}
+#mark .inner:hover .bg {
+    opacity: .7;
+}
+#mark img {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    vertical-align: middle;
+}
+#mark .info {
+    opacity: 0;
+    -webkit-transition: opacity .3s ease;
+    -moz-transition: opacity .3s ease;
+    transition: opacity .3s ease;
+    text-align: left;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: sans-serif;
+}
+#mark .inner:hover .info {
+    opacity: 1;
+}
+#mark .info:before {
+    display: inline-block;
+    content: '';
+    height: 100%;
+    vertical-align: bottom;
+}
+#mark h2 {
+    width: 100%;
+    vertical-align: bottom;
+    font-weight: bold;
+    font-size: 24px;
+    margin: -80px 0 0 20px;
+}
+#mark h3 {
+    width: 100%;
+    vertical-align: bottom;
+    margin: 8px 0 0 20px;
+    font-weight: normal;
+    font-size: 14px;
 }
