@@ -39,11 +39,16 @@ $(function($) {
     var init, rows, columns, container = $('#container'), S, H, t0, t1;
     var mark = $('#mark');
 
+    // window resize mark
+    var T;
+
+    // loader
+    L.loader()
+
     ;(init = function() {
 
-        // loader
-        L.loader()
-
+        L.loading()
+        
         var _width = container.width();
 
         columns = Math.ceil(_width / 90);
@@ -89,6 +94,8 @@ $(function($) {
 
         container.height(itemWidth * rows).data('w', _width).data('h', itemWidth * rows)
 
+        mark = true;
+
         container.find('li').each(function() {
             var m = $(this).find('img');
 
@@ -120,10 +127,14 @@ $(function($) {
 
                     if (!_a.length) {
                         g()
+                        L.loaded()
                     }
                 }
 
-                t0 = setTimeout(function() { f() }, 100)
+                clearTimeout(t0)
+                t0 = setTimeout(function() {
+                    f() 
+                }, 100)
 
             }())
 
@@ -153,7 +164,10 @@ $(function($) {
                     var N = H.splice(Hn, 1);
                     H.push(N[0])
 
-                    t1 = setTimeout(function() { g() }, R(1001, 3000))
+                    clearTimeout(t1)
+                    t1 = setTimeout(function() {
+                        g()
+                    }, R(1001, 3000))
                 })
 
             }
@@ -161,6 +175,15 @@ $(function($) {
         }, 1000)
 
     }).call()
+
+    // window resize
+    $(window).on('resize', function() {
+        clearTimeout(T)
+
+        T = setTimeout(function() {
+            init()
+        }, 500)    
+    })
 
     // show big cover
     container.on('click', function(e) {
