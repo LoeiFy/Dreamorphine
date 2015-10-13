@@ -39,7 +39,7 @@ $(function($) {
     var init, rows, columns, container = $('#container'), S, H, t0, t1;
     var mark = $('#mark');
 
-    // window resize mark
+    // window resize time
     var T;
 
     // loader
@@ -93,8 +93,6 @@ $(function($) {
         }
 
         container.height(itemWidth * rows).data('w', _width).data('h', itemWidth * rows)
-
-        mark = true;
 
         container.find('li').each(function() {
             var m = $(this).find('img');
@@ -178,6 +176,7 @@ $(function($) {
 
     // window resize
     $(window).on('resize', function() {
+        mark.trigger('click')
         clearTimeout(T)
 
         T = setTimeout(function() {
