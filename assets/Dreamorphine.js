@@ -18,6 +18,21 @@ function R(a, b){
     return Math.floor(Math.random() * (b - a) + a)
 }
 
+var L = {
+    loader: function() {
+        var w = window.innerWidth;
+        var css = '<style id="loaderstyle">@-moz-keyframes loader{0%{background-position:0 0}100%{background-position:'+ w +'px 0}}@-webkit-keyframes loader{0%{background-position:0 0}100%{background-position:'+ w +'px 0}}></style>';
+        $('#loaderstyle').remove()
+        $('head').append(css)
+    },
+    loading: function() {
+        $('.loader').addClass('loading').show()
+    },
+    loaded: function() {
+        $('.loader').removeClass('loading').hide()
+    }
+}
+
 $(function($) {
 
     // define
@@ -25,6 +40,9 @@ $(function($) {
     var mark = $('#mark');
 
     ;(init = function() {
+
+        // loader
+        L.loader()
 
         var _width = container.width();
 
@@ -152,10 +170,13 @@ $(function($) {
             return
         }
 
+        L.loading()
+
         mark.addClass('show')
 
         var cover = 'covers/'+ target.data('u') +'.jpg';
         $('<img src="'+ cover +'" />').on('load', function() {
+            L.loaded()
             mark.removeClass('loading')
 
             mark.find('.inner').width(target.data('w')).height(target.data('h'))
