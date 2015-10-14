@@ -62,6 +62,7 @@ server.post('/', upload.single('file'), function(req, res, next) {
             .resize(100)
             .noProfile()
             .crop(100, 100, 0, 0)
+            .quality(96)
             .write('./thumbnails/'+ hex +'.'+ type, function (err) {
 
                 var v = new Vibrant(req.file.path, {});
