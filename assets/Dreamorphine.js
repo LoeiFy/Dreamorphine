@@ -186,20 +186,24 @@ $(function($) {
 
     // show big cover
     container.on('click', function(e) {
+        if (container.data('click') == 1) {
+            return
+        }
+
         var target = $(e.target);
 
         if (parseInt(target.css('opacity')) === 0 || !target.data('u')) {
             return
         }
 
-        L.loading()
+        container.data('click', 1)
 
-        mark.addClass('show')
+        L.loading()
 
         var cover = 'covers/'+ target.data('u') +'.jpg';
         $('<img src="'+ cover +'" />').on('load', function() {
+            mark.addClass('show')
             L.loaded()
-            mark.removeClass('loading')
 
             mark.find('.inner').width(target.data('w')).height(target.data('h'))
             mark.find('.img').html($(this))
@@ -211,6 +215,7 @@ $(function($) {
     // close mark
     mark.on('click', function(e) {
         mark.removeClass('show').addClass('loading').find('.img').html('')
+        container.data('click', 0)
     })
 
 })
