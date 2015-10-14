@@ -51,7 +51,7 @@ $(function($) {
         
         var _width = container.width();
 
-        columns = Math.ceil(_width / 90);
+        columns = Math.ceil(_width / 100);
 
         // get item width and gap width
         var itemWidth = Math.floor(_width / columns),
