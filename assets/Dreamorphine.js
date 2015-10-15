@@ -42,6 +42,9 @@ $(function($) {
     // window resize time
     var T;
 
+    // get window width
+    var W = window.innerWidth;
+
     // loader
     L.loader()
 
@@ -52,6 +55,10 @@ $(function($) {
         var _width = container.width();
 
         columns = Math.ceil(_width / 100);
+
+        if ('ontouchstart' in window) {
+            columns = Math.ceil(_width / 80);
+        }
 
         // get item width and gap width
         var itemWidth = Math.floor(_width / columns),
@@ -180,7 +187,9 @@ $(function($) {
         clearTimeout(T)
 
         T = setTimeout(function() {
-            init()
+            if (window.innerWidth != W) { 
+                init()
+            }
         }, 500)    
     })
 
