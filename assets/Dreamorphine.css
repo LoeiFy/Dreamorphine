@@ -17,6 +17,7 @@ img {
 }
 html, body {
     height: 100%;
+    width: 100%;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-font-smoothing: antialiased;
 }
@@ -26,6 +27,7 @@ body {
     font-family: serif;
 }
 .wrap {
+    width: 100%;
     height: 100%;
     position: relative;
     overflow: hidden;
@@ -112,6 +114,7 @@ body {
     cursor: pointer;
 }
 #mark {
+    overflow: hidden;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -154,6 +157,13 @@ body {
 }
 #mark .inner:hover .bg {
     opacity: .7;
+}
+#mark .img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
 }
 #mark img {
     display: inline-block;
@@ -212,4 +222,24 @@ body {
 .loader.loading {
     -webkit-animation:loader 2s linear infinite;
     -moz-animation:loader 2s linear infinite;
+}
+
+@media screen and (max-width: 600px) {
+    .wrap {
+        min-height: 600px;
+    }
+    #header {
+        left: 30px;
+        margin-top: -270px;
+    }
+    #header h1 {
+        font-size: 34px;
+    }
+    #header p {
+        font-size: 14px;
+    }
+    #mark .inner {
+        max-height: 96%;
+        max-width: 96%;
+    }
 }
