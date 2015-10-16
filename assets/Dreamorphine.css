@@ -59,8 +59,7 @@ body {
     position: absolute;
     left: 50px;
     top: 50%;
-    margin-top: -290px;
-    position: absolute;
+    margin-top: -300px;
     z-index: 2;
 }
 #header h1 {
