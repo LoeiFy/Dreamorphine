@@ -56,10 +56,6 @@ $(function($) {
 
         columns = Math.ceil(_width / 100);
 
-        if ('ontouchstart' in window) {
-            columns = Math.ceil(_width / 80);
-        }
-
         // get item width and gap width
         var itemWidth = Math.floor(_width / columns),
             gapWidth = _width - itemWidth * columns,
