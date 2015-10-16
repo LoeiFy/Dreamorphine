@@ -197,7 +197,7 @@ $(function($) {
 
         var target = $(e.target);
 
-        if (parseInt(target.css('opacity')) === 0 || !target.data('u')) {
+        if (parseInt(target.css('opacity')) === 0 || !target.data('u') || !target.attr('src')) {
             return
         }
 
