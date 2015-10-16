@@ -59,9 +59,9 @@ server.post('/', upload.single('file'), function(req, res, next) {
                 w = value.width;
                 h = value.height;
             })
-            .resize(100)
+            .resize(200)
             .noProfile()
-            .crop(100, 100, 0, 0)
+            .crop(200, 200, 0, 0)
             .quality(100)
             .write('./thumbnails/'+ hex +'.'+ type, function (err) {
 
