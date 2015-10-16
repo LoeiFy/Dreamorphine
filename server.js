@@ -67,10 +67,28 @@ server.post('/', upload.single('file'), function(req, res, next) {
 
                 var v = new Vibrant(req.file.path, {});
                 v.getSwatches(function(err, swatches) {
+                    var color = '#000';
+                    
+                    if (swatches['Vibrant']) {
+                        color = swatches.Vibrant.getHex()
+                    }
+
+                    if (swatches['DarkVibrant']) {
+                        color = swatches.DarkVibrant.getHex()
+                    }
+
+                    if (swatches['Muted']) {
+                        color = swatches.Muted.getHex()
+                    }
+
+                    if (swatches['DarkMuted']) {
+                        color = swatches.DarkMuted.getHex()
+                    }
+
                     // md5, Vibrant, width, height, album, author
                     var s = '["'+ 
                             hex +'","'+
-                            swatches.Vibrant.getHex() +'","'+
+                            color +'","'+
                             w +'","'+
                             h +'","'+
                             album +'","'+
