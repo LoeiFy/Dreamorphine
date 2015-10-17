@@ -162,8 +162,8 @@ $(function($) {
                         $(Sl.find('img')[1]).remove()
                     }, 1000)
 
-                    var N = H.splice(Hn, 1);
-                    H.push(N[0])
+                    H.splice(Hn, 1)
+                    H.push(S[Sn])
 
                     clearTimeout(t1)
                     t1 = setTimeout(function() {
@@ -184,6 +184,7 @@ $(function($) {
 
         T = setTimeout(function() {
             if (window.innerWidth != W) { 
+                $('#line').html('')
                 init()
             }
         }, 500)    
