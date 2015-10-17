@@ -182,7 +182,7 @@ $(function($) {
                     clearTimeout(t1)
                     t1 = setTimeout(function() {
                         g()
-                    }, (mark ? 100 : 1500))
+                    }, (mark ? 1500 : 100))
                 })
 
             }
