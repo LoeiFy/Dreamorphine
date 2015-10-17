@@ -145,30 +145,44 @@ $(function($) {
                     return
                 }
 
+                var mark = true;
+
                 var Hn = R(0, H.length),
                     Hl = 'thumbnails/'+ H[Hn][0] +'.jpg',
 
                     Sn = R(0, S.length),
                     Sl = container.find('li').eq(Sn);
 
+                container.find('li').each(function() {
+                    var m = $(this).find('img').data('m');
+                    if (m == H[Hn][4]) {
+                        mark = false
+                    }
+                })
+
                 $('<img src="'+ Hl +'" />').on('load', function() {
 
-                    Sl.prepend('<img src="'+ Hl +'" data-u="'+ H[Hn][0] +'" data-c="'+ H[Hn][1] +'" data-w="'+ H[Hn][2] +'" data-h="'+ H[Hn][3] +'" data-m="'+ H[Hn][4] +'" data-r="'+ H[Hn][5] +'" />')
+                    if (mark) {
+                        Sl.prepend('<img src="'+ Hl +'" data-u="'+ H[Hn][0] +'" data-c="'+ H[Hn][1] +'" data-w="'+ H[Hn][2] +'" data-h="'+ H[Hn][3] +'" data-m="'+ H[Hn][4] +'" data-r="'+ H[Hn][5] +'" />')
 
-                    $(Sl.find('img')[0]).css('opacity', 1)
-                    $(Sl.find('img')[1]).css('opacity', 0)
+                        $(Sl.find('img')[0]).css('opacity', 1)
+                        $(Sl.find('img')[1]).css('opacity', 0)
 
-                    setTimeout(function() {
-                        $(Sl.find('img')[1]).remove()
-                    }, 1000)
+                        setTimeout(function() {
+                            $(Sl.find('img')[1]).remove()
+                        }, 1000)
+                    }
 
-                    H.splice(Hn, 1)
-                    H.push(S[Sn])
+                    var nh = H.splice(Hn, 1),
+                        ns = S.splice(Sn, 1);
+
+                    H.push(ns[0])
+                    S.push(nh[0])
 
                     clearTimeout(t1)
                     t1 = setTimeout(function() {
                         g()
-                    }, R(1001, 3000))
+                    }, (mark ? 100 : 1500))
                 })
 
             }
