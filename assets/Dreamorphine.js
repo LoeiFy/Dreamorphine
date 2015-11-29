@@ -18,40 +18,17 @@ function R(a, b){
     return Math.floor(Math.random() * (b - a) + a)
 }
 
-var L = {
-    loader: function() {
-        var w = window.innerWidth;
-        var css = '<style id="loaderstyle">@-moz-keyframes loader{0%{background-position:0 0}100%{background-position:'+ w +'px 0}}@-webkit-keyframes loader{0%{background-position:0 0}100%{background-position:'+ w +'px 0}}></style>';
-        $('#loaderstyle').remove()
-        $('head').append(css)
-    },
-    loading: function() {
-        $('.loader').addClass('loading').show()
-    },
-    loaded: function() {
-        $('.loader').removeClass('loading').hide()
-    }
-}
-
 $(function($) {
 
     // define
     var init, rows, columns, container = $('#container'), S, H, t0, t1;
     var mark = $('#mark');
 
-    // window resize time
-    var T;
-
     // get window width
     var W = window.innerWidth;
 
-    // loader
-    L.loader()
-
     ;(init = function() {
 
-        L.loading()
-        
         var _width = container.width();
 
         columns = Math.ceil(_width / 100);
@@ -127,8 +104,6 @@ $(function($) {
                     _a.splice(n, 1)
 
                     if (!_a.length) {
-                        g()
-                        L.loaded()
                     }
                 }
 
@@ -139,70 +114,9 @@ $(function($) {
 
             }())
 
-            function g() {
-
-                if (!H.length) {
-                    return
-                }
-
-                var mark = true;
-
-                var Hn = R(0, H.length),
-                    Hl = 'thumbnails/'+ H[Hn][0] +'.jpg',
-
-                    Sn = R(0, S.length),
-                    Sl = container.find('li').eq(Sn);
-
-                container.find('li').each(function() {
-                    var m = $(this).find('img').data('m');
-                    if (m == H[Hn][4]) {
-                        mark = false
-                    }
-                })
-
-                $('<img src="'+ Hl +'" />').on('load', function() {
-
-                    if (mark) {
-                        Sl.prepend('<img src="'+ Hl +'" data-u="'+ H[Hn][0] +'" data-c="'+ H[Hn][1] +'" data-w="'+ H[Hn][2] +'" data-h="'+ H[Hn][3] +'" data-m="'+ H[Hn][4] +'" data-r="'+ H[Hn][5] +'" />')
-
-                        $(Sl.find('img')[0]).css('opacity', 1)
-                        $(Sl.find('img')[1]).css('opacity', 0)
-
-                        setTimeout(function() {
-                            $(Sl.find('img')[1]).remove()
-                        }, 1000)
-                    }
-
-                    var nh = H.splice(Hn, 1),
-                        ns = S.splice(Sn, 1);
-
-                    H.push(ns[0])
-                    S.push(nh[0])
-
-                    clearTimeout(t1)
-                    t1 = setTimeout(function() {
-                        g()
-                    }, (mark ? 1500 : 100))
-                })
-
-            }
-
         }, 1000)
 
     }).call()
-
-    // window resize
-    $(window).on('resize', function() {
-        mark.trigger('click')
-        clearTimeout(T)
-
-        T = setTimeout(function() {
-            if (window.innerWidth != W) { 
-                $('#line').html('')
-                init()
-            }
-        }, 500)    
-    })
 
     // show big cover
     container.on('click', function(e) {
@@ -218,12 +132,9 @@ $(function($) {
 
         container.data('click', 1)
 
-        L.loading()
-
         var cover = 'covers/'+ target.data('u') +'.jpg';
         $('<img src="'+ cover +'" />').on('load', function() {
             mark.addClass('show')
-            L.loaded()
 
             mark.find('.inner').width(target.data('w')).height(target.data('h'))
             mark.find('.img').html($(this))
