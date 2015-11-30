@@ -21,72 +21,28 @@ function R(a, b){
 $(function($) {
 
     // define
-    var init, rows, columns, container = $('#container'), S, H, t0, t1;
-    var mark = $('#mark');
+    var container = $('#container'), mark = $('#mark');
 
-    // get window width
-    var W = window.innerWidth;
+    var str = '';
 
-    ;(init = function() {
-
-        var _width = container.width();
-
-        columns = Math.ceil(_width / 100);
-
-        // get item width and gap width
-        var itemWidth = Math.floor(_width / columns),
-            gapWidth = _width - itemWidth * columns,
-
-            // html string
-            str = '';
-
-        // get rows
-        rows = 4;
-
-        // total covers to show
-        S = covers.slice(0, rows * columns);
-
-        // random covers
-        H = covers.slice(rows * columns);
-
-        for (var k = 0; k < S.length; k ++) {
-            str += '<li><img data-u="'+ S[k][0] +'" data-c="'+ S[k][1] +'" data-w="'+ S[k][2] +'" data-h="'+ S[k][3] +'" data-m="'+ S[k][4] +'" data-r="'+ S[k][5] +'" /></li>';
+    for (var i = 0; i < covers.length; i ++) {
+        str += '<li><img data-u="'+ covers[i][0] +'" data-c="'+ covers[i][1] +'" data-w="'+ covers[i][2] +'" data-h="'+ covers[i][3] +'" data-m="'+ covers[i][4] +'" data-r="'+ covers[i][5] +'" /></li>';
         }
 
-        $('#container').html(str)
+    $('#container').html(str)
 
-        for(var i = 0; i < rows; i ++) {
-            for(var j = 0; j < columns; j ++) {
-                var idx = columns * i + j,
-                    item = container.find('li').eq(idx),
-                    w = j < gapWidth ? itemWidth + 1 : itemWidth;
+    container.find('li').each(function() {
+        var m = $(this).find('img');
 
-                item.css({
-                    width : w,
-                    height : itemWidth
-                })
-
-                if (i === 0) {
-                    $('#line').append('<div style="width:'+ w +'px"></div>')
-                }
-            }
-        }
-
-        container.height(itemWidth * rows).data('w', _width).data('h', itemWidth * rows)
-
-        container.find('li').each(function() {
-            var m = $(this).find('img');
-
-            m.attr('src', 'thumbnails/'+ m.data('u') +'.jpg').on('load', function() {
-                $(this).addClass('loaded')
-            })
-
+        m.attr('src', 'thumbnails/'+ m.data('u') +'.jpg').on('load', function() {
+            $(this).addClass('loaded')
         })
+    })
 
         setTimeout(function() {
 
             var _a = [];
-            for (var i = 0; i < S.length; i ++) {
+            for (var i = 0; i < covers.length; i ++) {
                 _a.push(i)
             }
 
@@ -107,8 +63,7 @@ $(function($) {
                     }
                 }
 
-                clearTimeout(t0)
-                t0 = setTimeout(function() {
+                setTimeout(function() {
                     f() 
                 }, 100)
 
@@ -116,7 +71,6 @@ $(function($) {
 
         }, 1000)
 
-    }).call()
 
     // show big cover
     container.on('click', function(e) {
