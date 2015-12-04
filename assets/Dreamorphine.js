@@ -1,3 +1,4 @@
+//alert(window.devicePixelRatio)
 // shuffle Array
 Array.prototype.shuffle = function() {
     var i = this.length, p, t;
