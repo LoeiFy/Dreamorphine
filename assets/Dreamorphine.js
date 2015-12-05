@@ -24,54 +24,18 @@ $(function($) {
     // define
     var container = $('#container'), mark = $('#mark');
 
-    var str = '';
+    var str = '<div>';
 
     for (var i = 0; i < covers.length; i ++) {
-        str += '<li><img data-u="'+ covers[i][0] +'" data-c="'+ covers[i][1] +'" data-w="'+ covers[i][2] +'" data-h="'+ covers[i][3] +'" data-m="'+ covers[i][4] +'" data-r="'+ covers[i][5] +'" /></li>';
-        }
+        str += '<img src="thumbnails/'+ covers[i][0] +'.jpg" data-c="'+ covers[i][1] +'" data-w="'+ covers[i][2] +'" data-h="'+ covers[i][3] +'" data-m="'+ covers[i][4] +'" data-r="'+ covers[i][5] +'" />';
+
+        if ((i + 1) % 8 === 0) 
+            str += '</div><div>';
+    }
+
+    str += '</div>';
 
     $('#container').html(str)
-
-    container.find('li').each(function() {
-        var m = $(this).find('img');
-
-        m.attr('src', 'thumbnails/'+ m.data('u') +'.jpg').on('load', function() {
-            $(this).addClass('loaded')
-        })
-    })
-
-        setTimeout(function() {
-
-            var _a = [];
-            for (var i = 0; i < covers.length; i ++) {
-                _a.push(i)
-            }
-
-            if (!_a.length) {
-                return
-            }
-
-            (function f() {
-
-                var n = R(0, _a.length),
-                    e = container.find('li').eq(_a[n]).find('img');
-
-                if (e.hasClass('loaded')) {
-                    e.css('opacity', 1)
-                    _a.splice(n, 1)
-
-                    if (!_a.length) {
-                    }
-                }
-
-                setTimeout(function() {
-                    f() 
-                }, 100)
-
-            }())
-
-        }, 1000)
-
 
     // show big cover
     container.on('click', function(e) {

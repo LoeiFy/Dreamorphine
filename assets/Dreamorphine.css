@@ -26,24 +26,13 @@ body {
     font-family: serif;
 }
 #container {
-    width: 80%;
-    margin-left: 10%;
     position: relative;
     z-index: 2;
     text-align: center;
 }
-#container li {
-    display: inline-block;
-    vertical-align: top;
-    overflow: hidden;
-    width: 200px;
-    height: 200px;
-}
 #container img {
     width: 200px;
     height: 200px;
-    opacity: 0;
-    transition: all 1s ease;
     cursor: pointer;
 }
 #mark {
