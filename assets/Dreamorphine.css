@@ -26,8 +26,9 @@ body {
     font-family: serif;
 }
 #container {
-    width: 100%;
-    min-width: 1000px;
+    width: 80%;
+    margin: 0 auto;
+    min-width: 800px;
     padding: 100px 0;
 }
 #container div {
@@ -48,13 +49,10 @@ body {
     left: 0;
 }
 #container div img:nth-child(2) {
-    left: 25%;
+    left: 33.3333333%;
 }
 #container div img:nth-child(3) {
-    left: 50%;
-}
-#container div img:nth-child(4) {
-    left: 75%;
+    left: 66.6666666%;
 }
 
 #mark {
