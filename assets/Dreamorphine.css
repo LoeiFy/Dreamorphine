@@ -26,14 +26,15 @@ body {
     font-family: serif;
 }
 #container {
-    margin-top: 50px;
     width: 100%;
-    padding: 50px 0;
+    min-width: 1000px;
+    padding: 100px 0;
 }
 #container div {
     position: relative;
     height: 300px;
     width: 100%;
+    border-top: 1px solid #eee;
 }
 #container img {
     width: 200px;

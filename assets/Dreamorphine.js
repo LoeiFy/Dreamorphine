@@ -29,20 +29,20 @@ $(function($) {
     for (var i = 0; i < covers.length; i ++) {
         
         // random left, top
-        var w = window.innerWidth, h = 300, _w = 200, _h = 200, t = 0, l = 0;
+        var w = container.width(), h = 300, _w = 200, _h = 200, t = 0, l = 0;
 
-        t = R(- _h / 4, h - _h / 4 * 3);
+        t = R(- _h / 8, h - _h / 8 * 7);
 
         if (i % 4 === 0) {
-            l = R(0, w / 4 - _w / 4 * 3)
+            l = R(_w / 8, w / 4 - _w / 8 * 7)
         }
 
         if (i % 4 === 1 || i % 4 === 2) {
-            l = R(- _w / 4, w / 4 - _w / 4 * 3)
+            l = R(- _w / 8, w / 4 - _w / 8 * 7)
         }
 
         if (i % 4 === 3) {
-            l = R(- _w / 4, w / 4 - _w)
+            l = R(- _w / 8, w / 4 - _w / 8 * 9)
         }
 
         str += '<img style="margin-top:'+ t +'px;margin-left:'+ l +'px" src="thumbnails/'+ covers[i][0] +'.jpg" data-c="'+ covers[i][1] +'" data-w="'+ covers[i][2] +'" data-h="'+ covers[i][3] +'" data-m="'+ covers[i][4] +'" data-r="'+ covers[i][5] +'" />';
