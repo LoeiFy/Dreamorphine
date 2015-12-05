@@ -26,15 +26,36 @@ body {
     font-family: serif;
 }
 #container {
+    margin-top: 50px;
+    width: 100%;
+    padding: 50px 0;
+}
+#container div {
     position: relative;
-    z-index: 2;
-    text-align: center;
+    height: 300px;
+    width: 100%;
 }
 #container img {
     width: 200px;
     height: 200px;
     cursor: pointer;
+    position: absolute;
+    top: 0;
 }
+
+#container div img:nth-child(1) {
+    left: 0;
+}
+#container div img:nth-child(2) {
+    left: 25%;
+}
+#container div img:nth-child(3) {
+    left: 50%;
+}
+#container div img:nth-child(4) {
+    left: 75%;
+}
+
 #mark {
     overflow: hidden;
     width: 100%;
