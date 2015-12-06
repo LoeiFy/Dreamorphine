@@ -33,7 +33,7 @@ body {
 }
 #container div {
     position: relative;
-    height: 300px;
+    height: 400px;
     width: 100%;
     border-top: 1px solid #eee;
 }
