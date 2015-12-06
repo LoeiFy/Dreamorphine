@@ -45,6 +45,10 @@ body {
     cursor: pointer;
     position: absolute;
     top: 0;
+    z-index: 0;
+}
+#container li:hover {
+    z-index: 1;
 }
 
 #container ul li:nth-child(1) {

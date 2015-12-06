@@ -71,6 +71,8 @@ $(function($) {
 
             target = $(e.target).parent();
 
+            target.css('z-index', '1')
+
             container.data('click', 1)
 
             var cover = 'covers/'+ target.data('u') +'.jpg';
@@ -100,6 +102,7 @@ $(function($) {
         mark.removeClass('show').addClass('loading')
         container.data('click', 0)
         target.find('div').css('width', 0)
+        target.css('z-index', '')
     })
 
 })
