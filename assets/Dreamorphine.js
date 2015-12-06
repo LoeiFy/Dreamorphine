@@ -45,7 +45,7 @@ $(function($) {
             l = R(- _w / 8, w / 3 - _w)
         }
 
-        str += '<img style="margin-top:'+ t +'px;margin-left:'+ l +'px" src="thumbnails/'+ covers[i][0] +'.jpg" data-c="'+ covers[i][1] +'" data-w="'+ covers[i][2] +'" data-h="'+ covers[i][3] +'" data-m="'+ covers[i][4] +'" data-r="'+ covers[i][5] +'" />';
+        str += '<img style="margin-top:'+ t +'px;margin-left:'+ l +'px" src="thumbnails/'+ covers[i][0] +'.jpg" data-u="'+ covers[i][0] +'" data-c="'+ covers[i][1] +'" data-w="'+ covers[i][2] +'" data-h="'+ covers[i][3] +'" data-m="'+ covers[i][4] +'" data-r="'+ covers[i][5] +'" />';
 
         if ((i + 1) % 3 === 0) {
             str += '</div><div>'
@@ -62,28 +62,37 @@ $(function($) {
             return
         }
 
-        var target = $(e.target);
+        if (e.target.tagName == 'IMG') {
 
-        if (parseInt(target.css('opacity')) === 0 || !target.data('u') || !target.attr('src')) {
-            return
+            var target = $(e.target);
+
+            container.data('click', 1)
+
+            var cover = 'covers/'+ target.data('u') +'.jpg';
+            
+            $('#canvas').attr('src', cover)
+
+            new CBFimage($('#canvas')[0], {
+                start: function() {
+                    // start load image
+                },
+                progress: function(loaded, total) {
+                    console.log(loaded +'###'+ total)
+                },
+                complete: function(image) {
+                    mark.addClass('show')
+
+                    mark.find('.inner').width(target.data('w')).height(target.data('h'))
+                    mark.find('.bg').css('background-color', target.data('c'))
+                    mark.find('.info').html('<h2>'+ target.data('m') +'</h2><h3>'+ target.data('r') +'</h3>')
+                }
+            })    
         }
-
-        container.data('click', 1)
-
-        var cover = 'covers/'+ target.data('u') +'.jpg';
-        $('<img src="'+ cover +'" />').on('load', function() {
-            mark.addClass('show')
-
-            mark.find('.inner').width(target.data('w')).height(target.data('h'))
-            mark.find('.img').html($(this))
-            mark.find('.bg').css('background-color', target.data('c'))
-            mark.find('.info').html('<h2>'+ target.data('m') +'</h2><h3>'+ target.data('r') +'</h3>')
-        })
     })
 
     // close mark
     mark.on('click', function(e) {
-        mark.removeClass('show').addClass('loading').find('.img').html('')
+        mark.removeClass('show').addClass('loading')
         container.data('click', 0)
     })
 
