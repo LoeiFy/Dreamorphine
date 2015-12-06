@@ -60,6 +60,8 @@ $(function($) {
     $('#container').html(str)
 
     // show big cover
+    var target;
+
     container.on('click', function(e) {
         if (container.data('click') == 1) {
             return
@@ -67,7 +69,7 @@ $(function($) {
 
         if (e.target.tagName == 'IMG') {
 
-            var target = $(e.target).parent();
+            target = $(e.target).parent();
 
             container.data('click', 1)
 
@@ -80,7 +82,7 @@ $(function($) {
                     // start load image
                 },
                 progress: function(loaded, total) {
-                    console.log(loaded +'###'+ total)
+                    target.find('div').css('width', (loaded / total) * 100 +'%')
                 },
                 complete: function(image) {
                     mark.addClass('show')
@@ -97,6 +99,7 @@ $(function($) {
     mark.on('click', function(e) {
         mark.removeClass('show').addClass('loading')
         container.data('click', 0)
+        target.find('div').css('width', 0)
     })
 
 })

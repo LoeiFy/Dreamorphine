@@ -55,12 +55,15 @@ body {
     left: 66.6666666%;
 }
 #container div {
+    -webkit-transition: width .5s ease;
+    -moz-transition: width .5s ease;
+    transition: width .5s ease;
     position: absolute;
     top: 0;
     left: 0;
     width: 0;
     height: 100%;
-    opacity: .3;
+    opacity: .4;
 }
 #container div:after {
     content: '';
