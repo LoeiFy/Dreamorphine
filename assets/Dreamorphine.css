@@ -96,6 +96,7 @@ body {
     -webkit-transition: opacity .5s ease;
     -moz-transition: opacity .5s ease;
     transition: opacity .5s ease;
+    background: rgba(255, 255, 255, .9);
 }
 #mark.show {
     visibility: visible;

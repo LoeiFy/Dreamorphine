@@ -92,6 +92,8 @@ $(function($) {
                     mark.find('.inner').width(600).height(600)
                     mark.find('.bg').css('background-color', target.data('c'))
                     mark.find('.info').html('<h2>'+ target.data('m') +'</h2><h3>'+ target.data('r') +'</h3>')
+
+                    $('body').css('overflow', 'hidden')
                 }
             })    
         }
@@ -103,6 +105,8 @@ $(function($) {
         container.data('click', 0)
         target.find('div').css('width', 0)
         target.css('z-index', '')
+
+        $('body').css('overflow', 'auto')
     })
 
 })
