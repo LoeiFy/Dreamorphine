@@ -31,13 +31,13 @@ body {
     min-width: 800px;
     padding: 100px 0;
 }
-#container div {
+#container ul {
     position: relative;
     height: 400px;
     width: 100%;
     border-top: 1px solid #eee;
 }
-#container img {
+#container li {
     width: 200px;
     height: 200px;
     cursor: pointer;
@@ -45,14 +45,31 @@ body {
     top: 0;
 }
 
-#container div img:nth-child(1) {
+#container ul li:nth-child(1) {
     left: 0;
 }
-#container div img:nth-child(2) {
+#container ul li:nth-child(2) {
     left: 33.3333333%;
 }
-#container div img:nth-child(3) {
+#container ul li:nth-child(3) {
     left: 66.6666666%;
+}
+#container div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    opacity: .3;
+}
+#container div:after {
+    content: '';
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #fff;
 }
 
 #mark {

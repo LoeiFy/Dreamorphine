@@ -24,7 +24,7 @@ $(function($) {
     // define
     var container = $('#container'), mark = $('#mark');
 
-    var str = '<div>';
+    var str = '<ul>';
 
     for (var i = 0; i < covers.length; i ++) {
         
@@ -45,14 +45,17 @@ $(function($) {
             l = R(- _w / 8, w / 3 - _w)
         }
 
-        str += '<img style="margin-top:'+ t +'px;margin-left:'+ l +'px" src="thumbnails/'+ covers[i][0] +'.jpg" data-u="'+ covers[i][0] +'" data-c="'+ covers[i][1] +'" data-w="'+ covers[i][2] +'" data-h="'+ covers[i][3] +'" data-m="'+ covers[i][4] +'" data-r="'+ covers[i][5] +'" />';
+        str += '<li data-u="'+ covers[i][0] +'" data-c="'+ covers[i][1] +'" data-m="'+ covers[i][4] +'" data-r="'+ covers[i][5] +'" style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
+               '<img src="thumbnails/'+ covers[i][0] +'.jpg" />'+
+               '<div style="background-color:'+ covers[i][1] +'"></div>'+
+               '</li>';
 
         if ((i + 1) % 3 === 0) {
-            str += '</div><div>'
+            str += '</ul><ul>'
         }
     }
 
-    str += '</div>';
+    str += '</ul>';
 
     $('#container').html(str)
 
@@ -64,7 +67,7 @@ $(function($) {
 
         if (e.target.tagName == 'IMG') {
 
-            var target = $(e.target);
+            var target = $(e.target).parent();
 
             container.data('click', 1)
 
@@ -82,7 +85,7 @@ $(function($) {
                 complete: function(image) {
                     mark.addClass('show')
 
-                    mark.find('.inner').width(target.data('w')).height(target.data('h'))
+                    mark.find('.inner').width(600).height(600)
                     mark.find('.bg').css('background-color', target.data('c'))
                     mark.find('.info').html('<h2>'+ target.data('m') +'</h2><h3>'+ target.data('r') +'</h3>')
                 }
