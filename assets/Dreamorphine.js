@@ -14,6 +14,8 @@ Array.prototype.shuffle = function() {
 // return shuffle covers
 covers = covers.shuffle();
 
+covers.splice(0, 0, ['Dreamorphine##A growing collection of album covers.'])
+
 // return random number
 function R(a, b){
     return Math.floor(Math.random() * (b - a) + a)
@@ -45,10 +47,21 @@ $(function($) {
             l = R(- _w / 8, w / 3 - _w)
         }
 
-        str += '<li data-u="'+ covers[i][0] +'" data-c="'+ covers[i][1] +'" data-m="'+ covers[i][4] +'" data-r="'+ covers[i][5] +'" style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
-               '<img src="thumbnails/'+ covers[i][0] +'.jpg" />'+
-               '<div style="background-color:'+ covers[i][1] +'"></div>'+
-               '</li>';
+        if (covers[i].length == 1) {
+
+            str += '<li style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
+                   '<h2>'+ covers[i][0].split('##')[0] +'</h2>'+
+                   '<p>'+ covers[i][0].split('##')[1] +'</p>'+
+                   '</li>';
+            
+        } else {
+
+            str += '<li data-u="'+ covers[i][0] +'" data-c="'+ covers[i][1] +'" data-m="'+ covers[i][4] +'" data-r="'+ covers[i][5] +'" style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
+                '<img src="thumbnails/'+ covers[i][0] +'.jpg" />'+
+                '<div style="background-color:'+ covers[i][1] +'"></div>'+
+                '</li>';
+
+        }
 
         if ((i + 1) % 3 === 0) {
             str += '</ul><ul>'
@@ -160,11 +173,11 @@ $(function($) {
         if (this.blur > 0) {
             context.globalAlpha = 0.5;
 
-            for (var y = -this.blur; y <= this.blur; y += 2) {
-                for (var x = -this.blur; x <= this.blur; x += 2) {
+            for (var y = - this.blur; y <= this.blur; y += 2) {
+                for (var x = - this.blur; x <= this.blur; x += 2) {
                     context.drawImage(this.element, x + 1, y + 1)
                     if (x >= 0 && y >= 0) {
-                        context.drawImage(this.element, -(x-1), -(y-1))
+                        context.drawImage(this.element, - (x - 1), - (y - 1))
                     }
                 }
             }
@@ -197,7 +210,19 @@ $(function($) {
                     that.canvasImg(image)
                     that.option.complete(image)
                 }
-                image.src = 'data:image/jpeg;base64,'+ base64Encode(request.responseText);
+
+                var type = 'jpeg',
+                    s = that.src.substr(that.src.lastIndexOf('.') + 1);
+
+                if (s.indexOf('gif') > -1) {
+                    type = 'gif'
+                }
+
+                if (s.indexOf('png') > -1) {
+                    type = 'png'
+                }
+
+                image.src = 'data:image/'+ type +';base64,'+ base64Encode(request.responseText);
             }
         }
 
