@@ -48,6 +48,13 @@ $(function($) {
         }
 
         if (covers[i].length == 1) {
+            if (t > 70) {
+                t = 70
+            }
+
+            if (l > 37) {
+                l = 37
+            }
 
             str += '<li style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
                    '<h2>'+ covers[i][0].split('##')[0] +'</h2>'+
@@ -94,7 +101,7 @@ $(function($) {
 
             new CBFimage($('#canvas')[0], {
                 start: function() {
-                    // start load image
+                    target.find('div').css('width', '3%')
                 },
                 progress: function(loaded, total) {
                     target.find('div').css('width', (loaded / total) * 100 +'%')
@@ -105,8 +112,6 @@ $(function($) {
                     mark.find('.inner').width(600).height(600)
                     mark.find('.bg').css('background-color', target.data('c'))
                     mark.find('.info').html('<h2>'+ target.data('m') +'</h2><h3>'+ target.data('r') +'</h3>')
-
-                    $('body').css('overflow', 'hidden')
                 }
             })    
         }
@@ -118,8 +123,12 @@ $(function($) {
         container.data('click', 0)
         target.find('div').css('width', 0)
         target.css('z-index', '')
+    })
 
-        $('body').css('overflow', 'auto')
+    $(window).on('DOMMouseScroll mousewheel', function(e) {
+        if (mark.hasClass('show')) {
+            e.preventDefault()
+        }
     })
 
 })
