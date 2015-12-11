@@ -25,12 +25,10 @@ body {
     background: #f0f0f0;
     position: relative;
     font-family: serif;
-    overflow-y: scroll;
 }
 #container {
     width: 80%;
     margin: 0 auto;
-    overflow: hidden;
     padding: 100px 0;
 }
 #container ul {

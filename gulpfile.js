@@ -13,6 +13,21 @@ gulp.task('post', function() {
 })
 
 gulp.task('replace', ['post'], function() {
+
+    if (!fs.existsSync('./pages')) {
+        fs.mkdirSync('./pages')
+    }
+
+    var lists = fs.readFileSync('temp/posts', 'utf8');
+    lists = JSON.parse('[' + lists + ']');
+
+    var chunk = 12;
+
+    for (var i = 0; i < lists.length; i += chunk) {
+        var list = lists.slice(i, i + chunk).join('@@');
+        fs.writeFileSync('./pages/'+ (i / chunk), list, 'utf8');
+    }
+
     return gulp.src('assets/index.html')
         .pipe(replace({
             patterns: [
