@@ -59,7 +59,7 @@ function template(cover) {
                  '<p>'+ cover[i][0].split('##')[1] +'</p>'+
                  '</li>';
         } else {
-            s += '<li data-u="'+ cover[i][0] +'" data-c="'+ cover[i][1] +'" data-m="'+ cover[i][4] +'" data-r="'+ cover[i][5] +'" style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
+            s += '<li data-u="'+ cover[i][0] +'" data-w="'+ cover[i][2] +'" data-h="'+ cover[i][3] +'" data-c="'+ cover[i][1] +'" data-m="'+ cover[i][4] +'" data-r="'+ cover[i][5] +'" style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
                  '<img src="thumbnails/'+ cover[i][0] +'.jpg" />'+
                  '<div style="background-color:'+ cover[i][1] +'"></div>'+
                  '</li>';
@@ -76,32 +76,37 @@ function template(cover) {
 }
 
 $(function($) {
+    var container = $('#container'), mark = $('#mark'),
+        target;     // current image
 
-    var container = $('#container'), mark = $('#mark');
+    // page 0
+    container.html(template(cover0))
 
-    // current image
-    var target;
+    // scroll
+    $(window).on('DOMMouseScroll mousewheel', function(e) {
+        if (mark.hasClass('show')) {
+            e.preventDefault()
+        }
+    })
 
-    container.html(template(cover0)).on('click', function(e) {
-        if (container.data('click') == 1) {
+    // show cover
+    container.on('click', function(e) {
+        if (container.data('loading') == 1) {
             return
         }
 
-        if (e.target.tagName == 'IMG') {
+        if (e.target.tagName == 'IMG' || e.target.tagName == 'LI') {
+            container.data('loading', 1)
 
-            target = $(e.target).parent();
-
+            target = e.target.tagName == 'LI' ? $(e.target) : $(e.target).parent();
             target.css('z-index', '1')
 
-            container.data('click', 1)
-
             var cover = 'covers/'+ target.data('u') +'.jpg';
-            
             $('#canvas').attr('src', cover)
 
             new CBFimage($('#canvas')[0], {
                 start: function() {
-                    target.find('div').css('width', '3%')
+                    target.find('div').css('width', '2.7%')
                 },
                 progress: function(loaded, total) {
                     target.find('div').css('width', (loaded / total) * 100 +'%')
@@ -109,7 +114,7 @@ $(function($) {
                 complete: function(image) {
                     mark.addClass('show')
 
-                    mark.find('.inner').width(600).height(600)
+                    mark.find('.inner').width(target.data('w')).height(target.data('h'))
                     mark.find('.bg').css('background-color', target.data('c'))
                     mark.find('.info').html('<h2>'+ target.data('m') +'</h2><h3>'+ target.data('r') +'</h3>')
                 }
@@ -117,20 +122,13 @@ $(function($) {
         }
     })
 
-    // close mark
+    // close cover
     mark.on('click', function(e) {
+        container.data('loading', 0)
         mark.removeClass('show').addClass('loading')
-        container.data('click', 0)
         target.find('div').css('width', 0)
         target.css('z-index', '')
     })
-
-    $(window).on('DOMMouseScroll mousewheel', function(e) {
-        if (mark.hasClass('show')) {
-            e.preventDefault()
-        }
-    })
-
 })
 
 /*
