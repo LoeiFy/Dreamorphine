@@ -83,6 +83,8 @@ $(function($) {
 
     str += '</ul>';
 
+    str = str.split('<ul></ul>')[0];
+
     $('#container').html(str)
 
     // show big cover
