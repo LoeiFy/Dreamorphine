@@ -17,80 +17,72 @@ function R(a, b) {
     return Math.floor(Math.random() * (b - a) + a)
 }
 
-// split
-function C(arr) {
-    return arr.split(',')
-} 
+function template(cover) {
+    var s = '<ul>';
 
-// shuffle covers
-cover0 = cover0.split('@@').shuffle();
+    var w = $('#container').width(), 
+        h = 400, 
+        _w = 200, 
+        _h = 200; 
 
-$(function($) {
+    cover = cover.split('@@').shuffle();
 
-    // define
-    var container = $('#container'), mark = $('#mark');
+    for (var i = 0; i < cover.length; i ++) {
+        var t, l;
 
-    var str = '<ul>';
-
-    for (var i = 0; i < cover0.length; i ++) {
-        
-        // random left, top
-        var w = container.width(), h = 400, _w = 200, _h = 200, t = 0, l = 0;
-
+        // margin top
         t = R(- _h / 8, h - _h / 8 * 7);
 
+        // margin left
         if (i % 3 === 0) {
             l = R(0, w / 3 - _w / 8 * 7)
         }
-
         if (i % 3 === 1) {
             l = R(- _w / 8, w / 3 - _w / 8 * 7)
         }
-
         if (i % 3 === 2) {
             l = R(- _w / 8, w / 3 - _w)
         }
 
-        var covers = C(cover0[i])
+        cover[i] = cover[i].split(',');
 
-        if (covers.length == 1) {
+        if (cover[i].length == 1) {
             if (t > 70) {
                 t = 70
             }
-
             if (l > 37) {
                 l = 37
             }
 
-            str += '<li style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
-                   '<h2>'+ covers[0].split('##')[0] +'</h2>'+
-                   '<p>'+ covers[0].split('##')[1] +'</p>'+
-                   '</li>';
-            
+            s += '<li style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
+                 '<h2>'+ cover[i][0].split('##')[0] +'</h2>'+
+                 '<p>'+ cover[i][0].split('##')[1] +'</p>'+
+                 '</li>';
         } else {
-
-            str += '<li data-u="'+ covers[0] +'" data-c="'+ covers[1] +'" data-m="'+ covers[4] +'" data-r="'+ covers[5] +'" style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
-                '<img src="thumbnails/'+ covers[0] +'.jpg" />'+
-                '<div style="background-color:'+ covers[1] +'"></div>'+
-                '</li>';
-
+            s += '<li data-u="'+ cover[i][0] +'" data-c="'+ cover[i][1] +'" data-m="'+ cover[i][4] +'" data-r="'+ cover[i][5] +'" style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
+                 '<img src="thumbnails/'+ cover[i][0] +'.jpg" />'+
+                 '<div style="background-color:'+ cover[i][1] +'"></div>'+
+                 '</li>';
         }
 
         if ((i + 1) % 3 === 0) {
-            str += '</ul><ul>'
+            s += '</ul><ul>'
         }
     }
 
-    str += '</ul>';
+    s += '</ul>';
 
-    str = str.split('<ul></ul>')[0];
+    return s.split('<ul></ul>')[0];
+}
 
-    $('#container').html(str)
+$(function($) {
 
-    // show big cover
+    var container = $('#container'), mark = $('#mark');
+
+    // current image
     var target;
 
-    container.on('click', function(e) {
+    container.html(template(cover0)).on('click', function(e) {
         if (container.data('click') == 1) {
             return
         }
