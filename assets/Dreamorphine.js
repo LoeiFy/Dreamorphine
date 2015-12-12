@@ -1,25 +1,29 @@
-//alert(window.devicePixelRatio)
 // shuffle Array
 Array.prototype.shuffle = function() {
     var i = this.length, p, t;
-    while (i--) {
-        p = Math.floor(Math.random()*i);
-        t = this[i];
-        this[i] = this[p];
-        this[p] = t;
+    while (i --) {
+        p = Math.floor(Math.random() * i);
+        if (p > 0) {
+            t = this[i];
+            this[i] = this[p];
+            this[p] = t;
+        }
     }
     return this
 }
 
-// return shuffle covers
-covers = covers.shuffle();
-
-covers.splice(0, 0, ['Dreamorphine##A growing collection of album covers.'])
-
-// return random number
-function R(a, b){
+// random number
+function R(a, b) {
     return Math.floor(Math.random() * (b - a) + a)
 }
+
+// split
+function C(arr) {
+    return arr.split(',')
+} 
+
+// shuffle covers
+cover0 = cover0.split('@@').shuffle();
 
 $(function($) {
 
@@ -28,7 +32,7 @@ $(function($) {
 
     var str = '<ul>';
 
-    for (var i = 0; i < covers.length; i ++) {
+    for (var i = 0; i < cover0.length; i ++) {
         
         // random left, top
         var w = container.width(), h = 400, _w = 200, _h = 200, t = 0, l = 0;
@@ -47,7 +51,9 @@ $(function($) {
             l = R(- _w / 8, w / 3 - _w)
         }
 
-        if (covers[i].length == 1) {
+        var covers = C(cover0[i])
+
+        if (covers.length == 1) {
             if (t > 70) {
                 t = 70
             }
@@ -57,15 +63,15 @@ $(function($) {
             }
 
             str += '<li style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
-                   '<h2>'+ covers[i][0].split('##')[0] +'</h2>'+
-                   '<p>'+ covers[i][0].split('##')[1] +'</p>'+
+                   '<h2>'+ covers[0].split('##')[0] +'</h2>'+
+                   '<p>'+ covers[0].split('##')[1] +'</p>'+
                    '</li>';
             
         } else {
 
-            str += '<li data-u="'+ covers[i][0] +'" data-c="'+ covers[i][1] +'" data-m="'+ covers[i][4] +'" data-r="'+ covers[i][5] +'" style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
-                '<img src="thumbnails/'+ covers[i][0] +'.jpg" />'+
-                '<div style="background-color:'+ covers[i][1] +'"></div>'+
+            str += '<li data-u="'+ covers[0] +'" data-c="'+ covers[1] +'" data-m="'+ covers[4] +'" data-r="'+ covers[5] +'" style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
+                '<img src="thumbnails/'+ covers[0] +'.jpg" />'+
+                '<div style="background-color:'+ covers[1] +'"></div>'+
                 '</li>';
 
         }

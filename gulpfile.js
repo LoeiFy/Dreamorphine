@@ -19,9 +19,10 @@ gulp.task('replace', ['post'], function() {
     }
 
     var lists = fs.readFileSync('temp/posts', 'utf8');
-    lists = JSON.parse('[' + lists + ']');
+    var info = '["Dreamorphine##A growing collection of album covers."],';
+    lists = JSON.parse('['+ info + lists +']');
 
-    var chunk = 12;
+    var chunk = 15;
 
     for (var i = 0; i < lists.length; i += chunk) {
         var list = lists.slice(i, i + chunk).join('@@');
@@ -33,7 +34,7 @@ gulp.task('replace', ['post'], function() {
             patterns: [
                 {
                     match: 'posts',
-                    replacement: fs.readFileSync('temp/posts', 'utf8')
+                    replacement: fs.readFileSync('./pages/0', 'utf8')
                 }
             ]
         }))
