@@ -77,6 +77,7 @@ function template(cover) {
 
 $(function($) {
     var container = $('#container'), mark = $('#mark'),
+        page = 0,   // current page
         target,     // current image
         time;       // scroll time
 
@@ -98,9 +99,18 @@ $(function($) {
                 }
                 $('body').data('loading', 1)
 
+                page ++;
+
                 setTimeout(function() {
-                    $.get('pages/1', function(data) {
-                        container.append(template(data))
+                    $.ajax({
+                        type: 'GET',
+                        url: 'pages/'+ page,
+                        success: function(data) {
+                            container.append(template(data))
+                            $('body').data('loading', 0)
+                        },
+                        error: function() {
+                        }
                     })
                 }, 0)
             }
