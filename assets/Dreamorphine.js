@@ -77,7 +77,8 @@ function template(cover) {
 
 $(function($) {
     var container = $('#container'), mark = $('#mark'),
-        target;     // current image
+        target,     // current image
+        time;       // scroll time
 
     // page 0
     container.html(template(cover0))
@@ -86,7 +87,24 @@ $(function($) {
     $(window).on('DOMMouseScroll mousewheel', function(e) {
         if (mark.hasClass('show')) {
             e.preventDefault()
+            return
         }
+
+        clearTimeout(time)
+        time = setTimeout(function() {
+            if (parseInt($(window).scrollTop()) + 800 > container.height()) {
+                if ($('body').data('loading') == 1) {
+                    return
+                }
+                $('body').data('loading', 1)
+
+                setTimeout(function() {
+                    $.get('pages/1', function(data) {
+                        container.append(template(data))
+                    })
+                }, 0)
+            }
+        }, 300)
     })
 
     // show cover
