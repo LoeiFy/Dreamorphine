@@ -31,6 +31,34 @@ body {
     margin: 0 auto;
     padding: 100px 0;
 }
+#container:after {
+    content: '';
+    border: 4px solid transparent;
+    border-top-color: #fff;
+    width: 20px;
+    height: 20px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-animation:loading 1s linear forwards infinite;
+    -moz-animation:loading 1s linear forwards infinite;
+    margin: auto auto 0;
+    position: relative;
+    top: 80px;
+    display: none;
+}
+body.loading #container:after {
+    display: block;
+}
+@-webkit-keyframes loading {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@-moz-keyframes loading {
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
 #container ul {
     position: relative;
     height: 400px;

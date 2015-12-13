@@ -105,10 +105,10 @@ $(function($) {
         clearTimeout(time)
         time = setTimeout(function() {
             if (parseInt($(window).scrollTop()) + 800 > container.height()) {
-                if ($('body').data('loading') == 1) {
+                if ($('body').hasClass('loading')) {
                     return
                 }
-                $('body').data('loading', 1)
+                $('body').addClass('loading')
 
                 page ++;
 
@@ -119,7 +119,7 @@ $(function($) {
                         success: function(data) {
                             loader(data)
                             setTimeout(function() {
-                                $('body').data('loading', 0)
+                                $('body').removeClass('loading')
                             }, 0)
                         }
                     })
