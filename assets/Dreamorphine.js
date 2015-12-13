@@ -54,7 +54,7 @@ function template(cover) {
                 l = 37
             }
 
-            s += '<li style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
+            s += '<li id="static" style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
                  '<h2>'+ cover[i][0].split('##')[0] +'</h2>'+
                  '<p>'+ cover[i][0].split('##')[1] +'</p>'+
                  '</li>';
@@ -135,9 +135,13 @@ $(function($) {
         }
 
         if (e.target.tagName == 'IMG' || e.target.tagName == 'LI') {
-            container.data('loading', 1)
-
             target = e.target.tagName == 'LI' ? $(e.target) : $(e.target).parent();
+
+            if (target.attr('id') == 'static') {
+                return
+            }
+
+            container.data('loading', 1)
             target.css('z-index', '1')
 
             var cover = 'covers/'+ target.data('u') +'.jpg';

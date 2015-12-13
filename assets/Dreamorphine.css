@@ -2,7 +2,7 @@
     font-family: 'DancingScript';
     src: url('font/DancingScript-Regular.otf') format('opentype');
 }
-body, h1, h3, p, ul, li {
+body, h1, h2, h3, p, ul, li {
     margin: 0;
     padding: 0;
     font-weight: normal;
@@ -73,6 +73,26 @@ body.loading #container:after {
     position: absolute;
     top: 0;
     z-index: 0;
+}
+#static h2 {
+    font-family: 'DancingScript', serif;
+    font-size: 30px;
+    color: #3c3c3c;
+}
+#static h2:after {
+    content: '';
+    display: block;
+    margin-top: 20px;
+    width: 30px;
+    height: 1px;
+    background: #dadada;
+}
+#static p {
+    font-family: serif;
+    font-size: 16px;
+    margin-top: 14px;
+    line-height: 1.4;
+    color: #5f5f5f;
 }
 #container li:hover {
     z-index: 1;
@@ -145,6 +165,8 @@ body.loading #container:after {
     display: inline-block;
     vertical-align: middle;
     position: relative;
+    max-height: 90%;
+    max-width: 90%;
 }
 #mark .bg {
     position: absolute;
@@ -167,10 +189,12 @@ body.loading #container:after {
     left: 0;
     top: 0;
 }
-#mark img {
+#mark canvas {
     display: inline-block;
-    width: 100%;
+    max-width: 100%;
     height: auto;
+    max-height: 100%;
+    width: auto;
     vertical-align: middle;
 }
 #mark .info {
