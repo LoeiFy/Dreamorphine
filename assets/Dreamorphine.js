@@ -60,7 +60,7 @@ function template(cover) {
                  '</li>';
         } else {
             s += '<li data-u="'+ cover[i][0] +'" data-w="'+ cover[i][2] +'" data-h="'+ cover[i][3] +'" data-c="'+ cover[i][1] +'" data-m="'+ cover[i][4] +'" data-r="'+ cover[i][5] +'" style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
-                 '<img src="thumbnails/'+ cover[i][0] +'.jpg" />'+
+                 '<img src="thumbnails/'+ cover[i][0] +'.jpg?0" />'+
                  '<div style="background-color:'+ cover[i][1] +'"></div>'+
                  '</li>';
         }
@@ -105,7 +105,7 @@ $(function($) {
         clearTimeout(time)
         time = setTimeout(function() {
             if (parseInt($(window).scrollTop()) + 800 > container.height()) {
-                if ($('body').hasClass('loading')) {
+                if ($('body').hasClass('loading') || $('body').data('end') == 1) {
                     return
                 }
                 $('body').addClass('loading')
@@ -121,6 +121,9 @@ $(function($) {
                             setTimeout(function() {
                                 $('body').removeClass('loading')
                             }, 0)
+                        },
+                        error: function() {
+                            $('body').removeClass('loading').data('end', 1)
                         }
                     })
                 }, 0)
@@ -144,7 +147,7 @@ $(function($) {
             container.data('loading', 1)
             target.css('z-index', '1')
 
-            var cover = 'covers/'+ target.data('u') +'.jpg';
+            var cover = 'covers/'+ target.data('u') +'.jpg?0';
             $('#canvas').attr('src', cover)
 
             new CBFimage($('#canvas')[0], {
