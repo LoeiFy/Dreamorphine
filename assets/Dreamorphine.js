@@ -122,8 +122,11 @@ $(function($) {
                                 $('body').removeClass('loading')
                             }, 0)
                         },
-                        error: function() {
-                            $('body').removeClass('loading').data('end', 1)
+                        error: function(a, b, c) {
+                            $('body').removeClass('loading')
+                            if (a.status == 404) {
+                                $('body').data('end', 1)
+                            }
                         }
                     })
                 }, 0)
