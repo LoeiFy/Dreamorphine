@@ -59,6 +59,12 @@ body {
 #container ul li:nth-child(3) {
     left: 66.6666666%;
 }
+#container img {
+    -webkit-transition: opacity .5s ease;
+    -moz-transition: opacity .5s ease;
+    transition: opacity .5s ease;
+    opacity: 0;
+}
 #container div {
     -webkit-transition: width .5s ease;
     -moz-transition: width .5s ease;

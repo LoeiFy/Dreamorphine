@@ -79,10 +79,21 @@ $(function($) {
     var container = $('#container'), mark = $('#mark'),
         page = 0,   // current page
         target,     // current image
-        time;       // scroll time
+        time,       // scroll time
+        loader;     // image load function
 
-    // page 0
-    container.html(template(cover0))
+    ;(loader = function(covers) {
+        $(template(covers)).appendTo(container).find('img').each(function() {
+            $(this).on('load', function() {
+                $(this).css('opacity', 1)
+            })
+            if ($(this).prop('complete')) {
+                setTimeout(function() {
+                    $(this).load()
+                }, 0)
+            }
+        })
+    }).call(window, cover0)
 
     // scroll
     $(window).on('DOMMouseScroll mousewheel', function(e) {
@@ -106,10 +117,10 @@ $(function($) {
                         type: 'GET',
                         url: 'pages/'+ page,
                         success: function(data) {
-                            container.append(template(data))
-                            $('body').data('loading', 0)
-                        },
-                        error: function() {
+                            loader(data)
+                            setTimeout(function() {
+                                $('body').data('loading', 0)
+                            }, 0)
                         }
                     })
                 }, 0)
