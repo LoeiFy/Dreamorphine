@@ -25,6 +25,12 @@ function template(cover) {
         _w = 200, 
         _h = 200; 
 
+    if (window.innerWidth <= 800) {
+        h = 200;
+        _w = 100;
+        _h = 100;
+    }
+
     cover = cover.split('@@').shuffle();
 
     for (var i = 0; i < cover.length; i ++) {
@@ -54,7 +60,7 @@ function template(cover) {
                 l = 37
             }
 
-            s += '<li id="static" style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
+            s += '<li class="static" style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
                  '<h2>'+ cover[i][0].split('##')[0] +'</h2>'+
                  '<p>'+ cover[i][0].split('##')[1] +'</p>'+
                  '</li>';
@@ -96,7 +102,7 @@ $(function($) {
     }).call(window, cover0)
 
     // scroll
-    $(window).on('DOMMouseScroll mousewheel', function(e) {
+    $(window).on('DOMMouseScroll mousewheel touchmove', function(e) {
         if (mark.hasClass('show')) {
             e.preventDefault()
             return
@@ -104,7 +110,7 @@ $(function($) {
 
         clearTimeout(time)
         time = setTimeout(function() {
-            if (parseInt($(window).scrollTop()) + 800 > container.height()) {
+            if (parseInt($(window).scrollTop()) + 1000 > container.height()) {
                 if ($('body').hasClass('loading') || $('body').data('end') == 1) {
                     return
                 }

@@ -39,6 +39,7 @@ body {
     height: 20px;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
+    border-radius: 50%;
     -webkit-animation:loading 1s linear forwards infinite;
     -moz-animation:loading 1s linear forwards infinite;
     margin: auto auto 0;
@@ -64,7 +65,7 @@ body.loading #container:after {
     height: 400px;
     width: 100%;
 }
-#container li {
+#container li, .static {
     width: 200px;
     height: 200px;
     padding: 30px;
@@ -74,12 +75,12 @@ body.loading #container:after {
     top: 0;
     z-index: 0;
 }
-#static h2 {
+.static h2 {
     font-family: 'DancingScript', serif;
     font-size: 30px;
     color: #3c3c3c;
 }
-#static h2:after {
+.static h2:after {
     content: '';
     display: block;
     margin-top: 20px;
@@ -112,6 +113,7 @@ body.loading #container:after {
     -moz-transition: opacity .5s ease;
     transition: opacity .5s ease;
     opacity: 0;
+    width: 100%;
 }
 #container div {
     -webkit-transition: width .5s ease;
@@ -235,3 +237,19 @@ body.loading #container:after {
     font-size: 14px;
 }
 
+@media screen and (max-width: 800px) {
+    #container {
+        width: 90%;
+    }
+    #container ul {
+        height: 200px;
+    }
+    #container li {
+        width: 100px;
+        height: 100px;
+        padding: 10px;
+    }
+    #container li.static {
+        display: none;
+    }
+}
