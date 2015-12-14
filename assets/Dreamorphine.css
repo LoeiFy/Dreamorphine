@@ -95,6 +95,9 @@ body.loading #container:after {
     line-height: 1.4;
     color: #5f5f5f;
 }
+section.static {
+    display: none;
+}
 #container li:hover {
     z-index: 1;
 }
@@ -251,5 +254,8 @@ body.loading #container:after {
     }
     #container li.static {
         display: none;
+    }
+    section.static {
+        display: block;
     }
 }
