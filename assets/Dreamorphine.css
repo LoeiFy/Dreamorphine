@@ -88,7 +88,7 @@ body.loading #container:after {
     height: 1px;
     background: #dadada;
 }
-#static p {
+.static p {
     font-family: serif;
     font-size: 16px;
     margin-top: 14px;
@@ -257,5 +257,8 @@ section.static {
     }
     section.static {
         display: block;
+    }
+    #mark .inner:hover .info {
+        opacity: 0;
     }
 }
