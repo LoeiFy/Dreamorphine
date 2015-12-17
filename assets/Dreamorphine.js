@@ -90,12 +90,14 @@ $(function($) {
 
     ;(loader = function(covers) {
         $(template(covers)).appendTo(container).find('img').each(function() {
-            $(this).on('load', function() {
-                $(this).css('opacity', 1)
+            var that = $(this);
+
+            that.on('load', function() {
+                that.css('opacity', 1).off('load')
             })
-            if ($(this).prop('complete')) {
+            if (that.prop('complete')) {
                 setTimeout(function() {
-                    $(this).load()
+                    that.trigger('load')
                 }, 0)
             }
         })
@@ -150,6 +152,10 @@ $(function($) {
             target = e.target.tagName == 'LI' ? $(e.target) : $(e.target).parent();
 
             if (target.attr('id') == 'static') {
+                return
+            }
+
+            if (target.find('img').css('opacity') != 1) {
                 return
             }
 
