@@ -103,22 +103,92 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.send(FD)
     }, false)
 
-    document.getElementById('album').previousElementSibling.addEventListener('click', function() {
+    // all covers
+    var covers = [];
 
-        var s = '?album=may may&author=see';
-
+    ;(function() {
         var xhr = new XMLHttpRequest();
 
-        xhr.open('GET', '/check'+ s, true)
+        xhr.open('GET', '/covers', true)
 
         xhr.onload = function() {
             if (this.status >= 200 && this.status < 400) {
-                console.log(this.response)
+                covers = JSON.parse(this.response).d;
+                covers = JSON.parse('['+ covers +']');
             }
         }
 
         xhr.send()
+    }())
+
+    document.getElementById('album').previousElementSibling.addEventListener('click', function() {
+
+        var search = 'one fine day'.toLowerCase().split(' ');
+
+        var back = [];
+
+        if (covers.length <= 0) {
+            alert('covers 0')
+            return
+        }
+
+        for (var i = 0; i < covers.length; i ++) {
+            var album = covers[i][4].toLowerCase();
+
+            for (var j = 0; j < search.length; j ++) {
+                if (album.indexOf(search[j]) > -1) {
+                    back.push(i)
+                    break;
+                }
+            }
+        }
+
+        if (back.length <= 0) {
+            alert('not match')
+            return
+        }
+
+        for (var k = 0; k < back.length; k ++) {
+            console.log(covers[back[k]])
+        }
 
     }, false)
+
+/*
+server.get('/check', upload.array(), function(req, res, next) {
+    var covers = fs.readFileSync('./temp/posts', 'utf8');
+    covers = JSON.parse('['+ covers +']');
+
+    var url = req.originalUrl;
+    url = url.split('?')[1];
+    url = decodeURIComponent(url);
+    url = url.split('&');
+
+    var info = {};
+    for (var i = 0; i < url.length; i ++) {
+        var data = url[i].split('=');
+        info[data[0]] = data[1]
+    }
+
+    for (var j = 0; j < covers.length; j ++) {
+        var album = covers[j][4],
+            author = covers[j][5];
+        
+        info.album = info.album.split(' ');
+        info.author = info.author.split(' ');
+
+        for (var k = 0; k < info.album.length; k ++) {
+            if (album.indexOf(info.album[k]) > -1) {
+            }
+        }
+    }
+
+    res.json({
+        c: 0,
+        m: 'success',
+        d: info
+    })
+})
+*/
 
 })
