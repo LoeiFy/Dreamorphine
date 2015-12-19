@@ -103,4 +103,22 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.send(FD)
     }, false)
 
+    document.getElementById('album').previousElementSibling.addEventListener('click', function() {
+
+        var s = '?album=may may&author=see';
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('GET', '/check'+ s, true)
+
+        xhr.onload = function() {
+            if (this.status >= 200 && this.status < 400) {
+                console.log(this.response)
+            }
+        }
+
+        xhr.send()
+
+    }, false)
+
 })

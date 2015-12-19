@@ -17,6 +17,22 @@ var server = express(),
 
 server.use(express.static('./publish'))
 
+server.get('/check', upload.array(), function(req, res, next) {
+    var covers = fs.readFileSync('./temp/posts', 'utf8');
+    covers = JSON.parse('['+ covers +']');
+
+    var url = req.originalUrl,
+        data = url.split('?')[1];
+
+    data = decodeURIComponent(data);
+
+    res.json({
+        c: 0,
+        m: 'success',
+        d: data
+    })
+})
+
 server.post('/', upload.single('file'), function(req, res, next) {
 
     var file = req.file,
