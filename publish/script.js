@@ -247,6 +247,12 @@ document.addEventListener('DOMContentLoaded', function() {
             return
         }
 
+        var album = target.querySelectorAll('h2')[0].textContent;
+
+        if (!confirm('Confirm Delete '+ album +' ?')) {
+            return
+        }
+
         var index = target.getAttribute('data-index'),
             md5 = target.getAttribute('data-md5');
 
@@ -258,8 +264,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         xhr.onload = function() {
             if (this.status >= 200 && this.status < 400) {
-                console.log(JSON.parse(this.response))
-                console.log(covers[index])
+                var data = JSON.parse(this.response);
+
+                if (parseInt(data.c) === 0) {
+                    note('success delete')
+
+                    covers.splice(index, 1)
+                    document.getElementById('list').innerHTML = '';
+                } 
             }
         }
 
