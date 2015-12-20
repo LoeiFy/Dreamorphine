@@ -117,24 +117,24 @@ input[type='submit'] {
     padding: 7px 20px 8px;
 }
 
-#show {
+#show, #list {
     list-style: none;
     padding: 10px 0;
     text-align: center;
 }
-#show li {
+#show li, #list li {
     display: inline-block;
     width: 240px;
     height: 240px;
     margin: 10px;
     position: relative;
 }
-#show img {
+#show img, #list img {
     display: block;
     width: 100%;
     height: auto;
 }
-#show div {
+#show div, #list div {
     text-align: left;
     color: #fff;
     width: 90%;
@@ -143,12 +143,12 @@ input[type='submit'] {
     bottom: 10px;
     font-family: sans-serif;
 }
-#show h2 {
+#show h2, #list h2 {
     font-size: 18px;
     margin: 0;
     font-weight: normal;
 }
-#show p {
+#show p, #list p {
     font-size: 14px;
     margin: 8px 0 0;
 }

@@ -198,4 +198,39 @@ document.addEventListener('DOMContentLoaded', function() {
         e.classList.add('active')
     }, false)
 
+    document.getElementById('delete').addEventListener('submit', function(e) {
+        e.preventDefault()
+
+        var album = this.album.value;
+
+        if (!album) {
+            note('please enter album')
+            return false
+        }
+
+        var index = search(covers, album);
+        if (index == -1) {
+            note('not covers')
+        }
+
+        if (index.length <= 0) {
+            note('not match')
+        }
+
+        var html = '';
+        for (var i = 0; i < index.length; i ++) {
+            var cover = covers[index[i]];
+
+            html += '<li data-md5="'+ cover[0] +'">'+
+                    '<img src="img/'+ cover[0] +'" />'+
+                    '<div>'+
+                    '<h2>'+ cover[4] +'</h2>'+
+                    '<p>'+ cover[5] +'</p>'+
+                    '</div>'+
+                    '</li>';
+        }
+
+        document.getElementById('list').innerHTML = html;
+    })
+
 })
