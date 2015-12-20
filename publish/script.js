@@ -177,12 +177,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         document.getElementById('show').innerHTML = html;
-
-        setTimeout(function() {
-            window.scrollTo(0, 0)
-            document.getElementById('check').style.display = 'none';
-            document.getElementById('submit').style.display = 'inline-block';
-        }, 0)
     }, false)
 
     document.getElementById('switch').addEventListener('click', function(e) {

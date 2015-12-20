@@ -90,8 +90,9 @@ input[type='submit'], input[type='button'] {
     outline: 0;
     cursor: pointer;
 }
-input[type='submit'] {
-    display: none;
+input[type='button'] {
+    background: #EC5151;
+    margin-left: 10px;
 }
 
 #note {
