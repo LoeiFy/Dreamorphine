@@ -92,11 +92,11 @@ document.addEventListener('DOMContentLoaded', function() {
             return false
         }
         if (!album) {
-            note('please enter a title')
+            note('please enter album')
             return false
         }
         if (!author) {
-            note('please enter a url')
+            note('please enter author')
             return false
         }
 
@@ -145,9 +145,15 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.send()
     }())
 
-    document.getElementById('album').previousElementSibling.addEventListener('click', function() {
+    document.getElementById('check').addEventListener('click', function() {
+        var album = document.getElementById('album').value;
 
-        var index = search(covers, 'lofi');
+        if (!album) {
+            note('please enter album')
+            return
+        }
+
+        var index = search(covers, album);
 
         if (index == -1) {
             note('not covers')
@@ -157,10 +163,14 @@ document.addEventListener('DOMContentLoaded', function() {
             note('not match')
         }
 
+        var html = '';
         for (var i = 0; i < index.length; i ++) {
-            console.log(covers[index[i]])
-        }
+            var cover = covers[index[i]];
 
+            html += '<li>'+
+                    '<img src="'+ cover[0] +'" />'+
+                    '</li>';
+        }
     }, false)
 
 })

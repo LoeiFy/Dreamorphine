@@ -27,6 +27,26 @@ server.get('/covers', upload.array(), function(req, res, next) {
     })
 })
 
+server.get('/img/:md5', function(req, res, next) {
+    var opt = {
+        root: __dirname +'/covers/',
+        dotfiles: 'deny',
+        headers: {
+            'x-timestamp': Date.now(),
+            'x-sent': true
+        }
+    }
+
+    var file = req.params.md5 +'.jpg';
+
+    res.sendFile(file, opt, function(err) {
+        if (err) {
+            console.log(err)
+            res.status(err.status).end()
+        }
+    })
+})
+
 server.post('/', upload.single('file'), function(req, res, next) {
 
     var file = req.file,

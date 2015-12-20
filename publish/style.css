@@ -78,7 +78,7 @@ form span {
     color: #b2b5bc;
 }
 
-input[type='submit'] {
+input[type='submit'], input[type='button'] {
     margin-top: 20px;
     display: inline-block;
     background: #1ec185;
@@ -89,6 +89,9 @@ input[type='submit'] {
     border-radius: 3px;
     outline: 0;
     cursor: pointer;
+}
+input[type='submit'] {
+    display: none;
 }
 
 #note {
