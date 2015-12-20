@@ -13,9 +13,9 @@ body {
     font-family: serif;
 }
 
-#form {
+#form, #delete {
     width: 700px;
-    margin: 50px auto;
+    margin: 0 auto;
 }
 
 h1 {
@@ -119,7 +119,7 @@ input[type='submit'] {
 
 #show {
     list-style: none;
-    padding: 30px 0;
+    padding: 10px 0;
     text-align: center;
 }
 #show li {
@@ -152,3 +152,48 @@ input[type='submit'] {
     font-size: 14px;
     margin: 8px 0 0;
 }
+#switch {
+    text-align: center;
+    padding: 30px 0 10px;
+}
+#switch div {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #777;
+    text-transform: uppercase;
+    border: 1px solid #dedede;
+    font-size: 16px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    cursor: pointer;
+}
+#switch div:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+}
+#switch div.active {
+    background: #777;
+    color: #fff;
+    border-color: #777;
+}
+.container {
+    width: 100%;
+    overflow: hidden;
+}
+#toggle {
+    width: 200%;
+    transition: all .3s ease;
+    transform: translateX(0);
+}
+#toggle.active {
+    transform: translateX(-50%);
+}
+.dib {
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+}
+

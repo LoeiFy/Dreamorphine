@@ -185,4 +185,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 0)
     }, false)
 
+    document.getElementById('switch').addEventListener('click', function(e) {
+        e = e.target;
+
+        if (e.getAttribute('id') == 'left') {
+            e.parentNode.children[1].classList.remove('active')
+            document.getElementById('toggle').classList.remove('active')
+        } else {
+            e.parentNode.children[0].classList.remove('active')
+            document.getElementById('toggle').classList.add('active')
+        }
+        e.classList.add('active')
+    }, false)
+
 })

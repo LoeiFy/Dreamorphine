@@ -10,12 +10,19 @@
 
 <div id="note"><p></p></div>
 
+<div id="switch">
+    <div id="left" class="active">Publish</div><div id="right">Delete</div>
+</div>
+
+<div class="container">
+<div id="toggle">
+
+<div class="dib">
 <ul id="show"></ul>
 
-<form accept="image/x-png, image/jpeg" enctype="multipart/form-data" method="post" action="/" id="form">
+<form autocomplete="off" accept="image/x-png, image/jpeg" enctype="multipart/form-data" method="post" action="/" id="form">
     <input type="file" name="file" id="file" accept="image/x-png, image/jpeg"/>
 
-    <h1>publish</h1>
     <div id="drop">Drag cover image here or browse to upload [JPG, PNG]</div>
 
     <p>Album<span>e.g. "Soon It Will Be Cold Enough"</span></p>
@@ -27,6 +34,21 @@
     <input type="submit" id="submit" value="Save Cover" />
     <input type="button" id="check" value="Test Cover" />
 </form>
+</div><!--
+
+--><div class="dib">
+
+<form autocomplete="off" method="post" action="/delete" id="delete">
+    <p>Album<span>e.g. "Soon It Will Be Cold Enough"</span></p>
+    <input type="text" name="album"/>
+
+    <input type="submit" style="display: inline-block;" value="Select Covers" />
+</form>
+
+</div>
+
+</div>
+</div>
 
 <script src="script.js"></script>
 </body>
