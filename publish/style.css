@@ -129,6 +129,9 @@ input[type='submit'] {
     margin: 10px;
     position: relative;
 }
+#list li {
+    cursor: pointer;
+}
 #show img, #list img {
     display: block;
     width: 100%;

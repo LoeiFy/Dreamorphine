@@ -47,8 +47,17 @@ server.get('/img/:md5', function(req, res, next) {
     })
 })
 
-server.post('/', upload.single('file'), function(req, res, next) {
+server.post('/delete', upload.array(), function(req, res, next) {
+    var md5 = req.body.md5;
 
+    res.json({
+        c: 0,
+        m: 'success',
+        d: md5
+    })
+})
+
+server.post('/', upload.single('file'), function(req, res, next) {
     var file = req.file,
         album = req.body.album.replace(/"/g, '\\"'),
         author = req.body.author.replace(/"/g, '\\"');

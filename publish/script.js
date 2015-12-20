@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
         for (var i = 0; i < index.length; i ++) {
             var cover = covers[index[i]];
 
-            html += '<li data-md5="'+ cover[0] +'">'+
+            html += '<li data-index="'+ index[i] +'" data-md5="'+ cover[0] +'">'+
                     '<img src="img/'+ cover[0] +'" />'+
                     '<div>'+
                     '<h2>'+ cover[4] +'</h2>'+
@@ -235,5 +235,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
         document.getElementById('list').innerHTML = html;
     })
+
+    document.getElementById('list').addEventListener('click', function(e) {
+        var target;
+
+        if (e.target.tagName == 'IMG' || e.target.tagName == 'DIV') {
+            target = e.target.parentNode
+        } else if (e.target.tagName == 'H2' || e.target.tagName == 'P') {
+            target = e.target.parentNode.parentNode
+        } else {
+            return
+        }
+
+        var index = target.getAttribute('data-index'),
+            md5 = target.getAttribute('data-md5');
+
+        var xhr = new XMLHttpRequest(), DATA = new FormData();
+
+        DATA.append('md5', md5)
+
+        xhr.open('POST', '/delete', true)
+
+        xhr.onload = function() {
+            if (this.status >= 200 && this.status < 400) {
+                console.log(JSON.parse(this.response))
+                console.log(covers[index])
+            }
+        }
+
+        xhr.send(DATA)
+    }, false)
 
 })
