@@ -168,9 +168,21 @@ document.addEventListener('DOMContentLoaded', function() {
             var cover = covers[index[i]];
 
             html += '<li>'+
-                    '<img src="'+ cover[0] +'" />'+
+                    '<img src="img/'+ cover[0] +'" />'+
+                    '<div>'+
+                    '<h2>'+ cover[4] +'</h2>'+
+                    '<p>'+ cover[5] +'</p>'+
+                    '</div>'+
                     '</li>';
         }
+
+        document.getElementById('show').innerHTML = html;
+
+        setTimeout(function() {
+            window.scrollTo(0, 0)
+            document.getElementById('check').style.display = 'none';
+            document.getElementById('submit').style.display = 'inline-block';
+        }, 0)
     }, false)
 
 })
