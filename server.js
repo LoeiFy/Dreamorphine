@@ -19,7 +19,6 @@ server.use(express.static('./publish'))
 
 server.get('/covers', upload.array(), function(req, res, next) {
     var covers = fs.readFileSync('./temp/posts', 'utf8');
-    //covers = JSON.parse('['+ covers +']');
 
     res.json({
         c: 0,

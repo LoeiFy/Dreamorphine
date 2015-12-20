@@ -14,6 +14,30 @@ var note = function(s) {
     }, 1500)
 }
 
+// search
+function search(covers, str) {
+    str = str.toLowerCase().split(' ');
+
+    var index = [];
+
+    if (covers.length <= 0) {
+        return -1
+    }
+
+    for (var i = 0; i < covers.length; i ++) {
+        var album = covers[i][4].toLowerCase();
+
+        for (var j = 0; j < str.length; j ++) {
+            if (album.indexOf(str[j]) > -1) {
+                index.push(i)
+                break;
+            }
+        }
+    }
+
+    return index
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 
     var FD, mk = false;
@@ -123,72 +147,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('album').previousElementSibling.addEventListener('click', function() {
 
-        var search = 'one fine day'.toLowerCase().split(' ');
+        var index = search(covers, 'lofi');
 
-        var back = [];
-
-        if (covers.length <= 0) {
-            alert('covers 0')
-            return
+        if (index == -1) {
+            note('not covers')
         }
 
-        for (var i = 0; i < covers.length; i ++) {
-            var album = covers[i][4].toLowerCase();
-
-            for (var j = 0; j < search.length; j ++) {
-                if (album.indexOf(search[j]) > -1) {
-                    back.push(i)
-                    break;
-                }
-            }
+        if (index.length <= 0) {
+            note('not match')
         }
 
-        if (back.length <= 0) {
-            alert('not match')
-            return
-        }
-
-        for (var k = 0; k < back.length; k ++) {
-            console.log(covers[back[k]])
+        for (var i = 0; i < index.length; i ++) {
+            console.log(covers[index[i]])
         }
 
     }, false)
-
-/*
-server.get('/check', upload.array(), function(req, res, next) {
-    var covers = fs.readFileSync('./temp/posts', 'utf8');
-    covers = JSON.parse('['+ covers +']');
-
-    var url = req.originalUrl;
-    url = url.split('?')[1];
-    url = decodeURIComponent(url);
-    url = url.split('&');
-
-    var info = {};
-    for (var i = 0; i < url.length; i ++) {
-        var data = url[i].split('=');
-        info[data[0]] = data[1]
-    }
-
-    for (var j = 0; j < covers.length; j ++) {
-        var album = covers[j][4],
-            author = covers[j][5];
-        
-        info.album = info.album.split(' ');
-        info.author = info.author.split(' ');
-
-        for (var k = 0; k < info.album.length; k ++) {
-            if (album.indexOf(info.album[k]) > -1) {
-            }
-        }
-    }
-
-    res.json({
-        c: 0,
-        m: 'success',
-        d: info
-    })
-})
-*/
 
 })
