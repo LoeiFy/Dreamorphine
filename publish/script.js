@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var album = target.querySelectorAll('h2')[0].textContent;
 
-        if (!confirm('Confirm Delete '+ album +' ?')) {
+        if (!confirm('Confirm Delete " '+ album +' " ?')) {
             return
         }
 
