@@ -28,7 +28,7 @@ function search(covers, str) {
         var album = covers[i][4].toLowerCase();
 
         for (var j = 0; j < str.length; j ++) {
-            if (album.indexOf(str[j]) > -1) {
+            if (str[j].length >= 3 && album.indexOf(str[j]) > -1) {
                 index.push(i)
                 break;
             }
