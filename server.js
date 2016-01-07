@@ -50,7 +50,8 @@ server.get('/img/:md5', function(req, res, next) {
 server.post('/delete', upload.array(), function(req, res, next) {
     var md5 = req.body.md5,
         coverPath = './covers/'+ md5 +'.jpg',
-        thumbnailPath = './thumbnails/'+ md5 +'.jpg';
+        thumbnailPath = './thumbnails/'+ md5 +'.jpg',
+        postPath = './posts/'+ md5;
 
     fs.unlink(coverPath, function(err) {
         if (err) {
@@ -66,9 +67,18 @@ server.post('/delete', upload.array(), function(req, res, next) {
                         m: 'fail'
                     })
                 } else {
-                    res.json({
-                        c: 0,
-                        m: 'success'
+                    fs.unlink(postPath, function(err) {
+                        if (err) {
+                            res.json({
+                                c: -1,
+                                m: 'fail'
+                            })
+                        } else {
+                            res.json({
+                                c: 0,
+                                m: 'success'
+                            })
+                        }
                     })
                 }
             })
