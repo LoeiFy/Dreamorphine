@@ -19,8 +19,9 @@ gulp.task('replace', ['post'], function() {
     }
 
     var lists = fs.readFileSync('temp/posts', 'utf8');
-    var info = '["Dreamorphine##A growing collection of album covers."],';
-    lists = JSON.parse('['+ info + lists +']');
+    var info = ["Dreamorphine##A growing collection of album covers."];
+    lists = JSON.parse('['+ lists +']').reverse();
+    lists.unshift(info)
 
     var chunk = 15;
 
