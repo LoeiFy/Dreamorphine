@@ -67,7 +67,7 @@ function template(cover) {
         } else {
             s += '<li data-u="'+ cover[i][0] +'" data-w="'+ cover[i][2] +'" data-h="'+ cover[i][3] +'" data-c="'+ cover[i][1] +'" data-m="'+ cover[i][4] +'" data-r="'+ cover[i][5] +'" style="margin-top:'+ t +'px;margin-left:'+ l +'px">'+
                  '<img src="thumbnails/'+ cover[i][0] +'.jpg?0" />'+
-                 '<div style="background-color:'+ cover[i][1] +'"></div>'+
+                 '<div></div>'+
                  '</li>';
         }
 
@@ -80,6 +80,8 @@ function template(cover) {
 
     return s.split('<ul></ul>')[0];
 }
+
+var svg = '<svg x="0px" y="0px" width="36px" height="36px" viewBox="0 0 36 36"><circle fill="none" stroke="#2a76e8" stroke-width="2" cx="18" cy="18" r="16" stroke-dasharray="100 100" stroke-dashoffset="100" transform="rotate(-90 18 18)"></circle></svg>';
 
 $(function($) {
     var container = $('#container'), mark = $('#mark'),
@@ -148,7 +150,7 @@ $(function($) {
             return
         }
 
-        if (e.target.tagName == 'IMG' || e.target.tagName == 'LI') {
+        if (e.target.tagName == 'DIV' || e.target.tagName == 'LI') {
             target = e.target.tagName == 'LI' ? $(e.target) : $(e.target).parent();
 
             if (target.attr('id') == 'static') {
@@ -167,12 +169,12 @@ $(function($) {
 
             new CBFimage($('#canvas')[0], {
                 start: function() {
-                    //target.find('div').css('width', '2.7%')
-                    target.find('div').html('<svg x="0px" y="0px" width="36px" height="36px" viewBox="0 0 36 36"><circle fill="none" stroke="#2a76e8" stroke-width="2" cx="18" cy="18" r="16" stroke-dasharray="100 100" stroke-dashoffset="100" transform="rotate(-90 18 18)"></circle></svg>')
+                    target.find('div').append('<p style="color:'+ target.data('c') +'">0</p>')
+                    target.find('div').append(svg).find('circle').attr('stroke', target.data('c'))
                 },
                 progress: function(loaded, total) {
-                    //target.find('div').css('width', (loaded / total) * 100 +'%')
                     target.find('circle').attr('stroke-dashoffset', 100 - (loaded / total) * 100)
+                    target.find('p').html(Math.ceil((loaded / total) * 100))
                 },
                 complete: function(image) {
                     mark.addClass('show')
@@ -189,8 +191,8 @@ $(function($) {
     mark.on('click', function(e) {
         container.data('loading', 0)
         mark.removeClass('show').addClass('loading')
-        target.find('div').css('width', 0)
         target.css('z-index', '')
+        target.find('div').html('')
     })
 })
 
