@@ -167,10 +167,12 @@ $(function($) {
 
             new CBFimage($('#canvas')[0], {
                 start: function() {
-                    target.find('div').css('width', '2.7%')
+                    //target.find('div').css('width', '2.7%')
+                    target.find('div').html('<svg x="0px" y="0px" width="36px" height="36px" viewBox="0 0 36 36"><circle fill="none" stroke="#2a76e8" stroke-width="2" cx="18" cy="18" r="16" stroke-dasharray="100 100" stroke-dashoffset="100" transform="rotate(-90 18 18)"></circle></svg>')
                 },
                 progress: function(loaded, total) {
-                    target.find('div').css('width', (loaded / total) * 100 +'%')
+                    //target.find('div').css('width', (loaded / total) * 100 +'%')
+                    target.find('circle').attr('stroke-dashoffset', 100 - (loaded / total) * 100)
                 },
                 complete: function(image) {
                     mark.addClass('show')
