@@ -88,7 +88,8 @@ $(function($) {
         page = 0,   // current page
         target,     // current image
         time,       // scroll time
-        loader;     // image load function
+        loader,     // image load function
+        xhr;        // global xhr
 
     ;(loader = function(covers) {
         $(template(covers)).appendTo(container).find('img').each(function() {
@@ -146,11 +147,13 @@ $(function($) {
 
     // show cover
     container.on('click', function(e) {
-        if (container.data('loading') == 1) {
-            return
-        }
-
         if (e.target.tagName == 'DIV' || e.target.tagName == 'LI') {
+            if (xhr) {
+                // abort previous
+                xhr.abort()
+                target.find('div').html('')
+            }
+
             target = e.target.tagName == 'LI' ? $(e.target) : $(e.target).parent();
 
             if (target.attr('id') == 'static') {
@@ -161,13 +164,12 @@ $(function($) {
                 return
             }
 
-            container.data('loading', 1)
             target.css('z-index', '1')
 
             var cover = 'covers/'+ target.data('u') +'.jpg?0';
             $('#canvas').attr('src', cover)
 
-            new CBFimage($('#canvas')[0], {
+            xhr = new CBFimage($('#canvas')[0], {
                 start: function() {
                     target.find('div').append('<p style="color:'+ target.data('c') +'">0</p>')
                     target.find('div').append(svg).find('circle').attr('stroke', target.data('c'))
@@ -199,7 +201,7 @@ $(function($) {
 /*
  * https://github.com/LoeiFy/CBFimage/blob/master/README.md
  *
- * @version 1.0.0
+ * @version 1.0.1
  * @author LoeiFy@gmail.com
  * http://lorem.in/ | under MIT license
  */
@@ -261,21 +263,21 @@ $(function($) {
     // xhr get image
     CBFimage.prototype.loadImg = function () {
 
-        var request = new XMLHttpRequest(),
-            that = this;
+        var that = this;
+        this.request = new XMLHttpRequest();
 
-        request.onloadstart = function() {
+        this.request.onloadstart = function() {
             that.option.start()
         }
 
-        request.onprogress = function(e) {
+        this.request.onprogress = function(e) {
             // may total = 0
             if (parseInt(e.total) !== 0) {
                 that.option.progress(e.loaded, e.total)
             }
         }
 
-        request.onload = function(e) {
+        this.request.onload = function(e) {
             if (this.status >= 200 && this.status < 400) {
                 var image = new Image();
                 image.onload = function() {
@@ -283,25 +285,25 @@ $(function($) {
                     that.option.complete(image)
                 }
 
-                var type = 'jpeg',
-                    s = that.src.substr(that.src.lastIndexOf('.') + 1);
+                var type = that.src.substr(that.src.lastIndexOf('.') + 1).substr(0, 3);
 
-                if (s.indexOf('gif') > -1) {
-                    type = 'gif'
+                if (type == 'jpg') {
+                    type = 'jpeg'
                 }
 
-                if (s.indexOf('png') > -1) {
-                    type = 'png'
-                }
-
-                image.src = 'data:image/'+ type +';base64,'+ base64Encode(request.responseText);
+                image.src = 'data:image/'+ type +';base64,'+ base64Encode(that.request.responseText);
             }
         }
 
-        request.open('GET', that.src, true)
-        request.overrideMimeType('text/plain; charset=x-user-defined')
-        request.send(null)
+        this.request.open('GET', that.src, true)
+        this.request.overrideMimeType('text/plain; charset=x-user-defined')
+        this.request.send(null)
 
+    }
+
+    // abort
+    CBFimage.prototype.abort = function() {
+        this.request.abort()
     }
 
     // http://www.philten.com/us-xmlhttprequest-image/
@@ -342,3 +344,4 @@ $(function($) {
     window.CBFimage = CBFimage;
 
 })(window)
+
