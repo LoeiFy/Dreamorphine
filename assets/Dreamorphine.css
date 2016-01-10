@@ -129,16 +129,16 @@ section.static {
 #container div p {
     background: #fff;
     position: absolute;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     left: 50%;
-    margin-left: -18px;
+    margin-left: -20px;
     top: 50%;
-    margin-top: -18px;
+    margin-top: -20px;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
-    line-height: 36px;
+    line-height: 40px;
     text-align: center;
     font-size: 14px;
     font-family: sans-serif;
