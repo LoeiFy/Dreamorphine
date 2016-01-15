@@ -86,7 +86,7 @@ var svg = '<svg x="0px" y="0px" width="36px" height="36px" viewBox="0 0 36 36"><
 $(function($) {
     setTimeout(function() {
         $('.static h2').addClass('font')
-    }, 0)
+    }, 1000)
 
     var container = $('#container'), mark = $('#mark'),
         page = 0,   // current page
