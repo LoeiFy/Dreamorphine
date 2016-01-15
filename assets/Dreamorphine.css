@@ -77,9 +77,12 @@ body.loading #container:after {
     z-index: 0;
 }
 .static h2 {
-    font-family: 'DancingScript', serif;
+    font-family: serif;
     font-size: 30px;
     color: #3c3c3c;
+}
+.static h2.font {
+    font-family: 'DancingScript', serif;
 }
 .static h2:after {
     content: '';
