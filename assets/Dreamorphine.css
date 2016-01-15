@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'DancingScript';
-    src: url('font/DancingScript-Regular.otf') format('opentype');
+    src: url('/assets/font/DancingScript-Regular.otf') format('opentype');
 }
 body, h1, h2, h3, p, ul, li {
     margin: 0;
