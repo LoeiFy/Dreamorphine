@@ -81,8 +81,8 @@ body.loading #container:after {
     font-size: 30px;
     color: #3c3c3c;
 }
-.static h2.font {
-    font-family: 'DancingScript', serif;
+.font {
+    font-family: 'DancingScript', serif!important;
 }
 .static h2:after {
     content: '';
